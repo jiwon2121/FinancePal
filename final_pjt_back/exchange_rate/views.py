@@ -16,31 +16,37 @@ def save(request):
     response = requests.get(url).json()
     for obj in response:
         if ExchangeRate.objects.filter(pk=obj.get('cur_unit')).exists():
-            exchange_rate = ExchangeRate.objects.get(pk=obj['cur_unit'])
-            exchange_rate.cur_unit = obj.get('cur_unit')
-            exchange_rate.ttb = obj.get('ttb')
-            exchange_rate.tts = obj.get('tts')
-            exchange_rate.deal_bas_r = obj.get('deal_bas_r')
-            exchange_rate.bkpr = obj.get('bkpr')
-            exchange_rate.yy_efee_r = obj.get('yy_efee_r')
-            exchange_rate.ten_dd_efee_r = obj.get('ten_dd_efee_r')
-            exchange_rate.kftc_bkpr = obj.get('kftc_bkpr')
-            exchange_rate.kftc_deal_bas_r = obj.get('kftc_deal_bas_r')
-            exchange_rate.cur_nm = obj.get('cur_nm')
-            exchange_rate.save()
+            instance = ExchangeRate.objects.get(pk=obj.get('cur_unit'))
+            serializer = ExchangeRateSerializer(instance=instance, data=obj, partial=True)
+            # exchange_rate = ExchangeRate.objects.get(pk=obj['cur_unit'])
+            # exchange_rate.cur_unit = obj.get('cur_unit')
+            # exchange_rate.ttb = obj.get('ttb')
+            # exchange_rate.tts = obj.get('tts')
+            # exchange_rate.deal_bas_r = obj.get('deal_bas_r')
+            # exchange_rate.bkpr = obj.get('bkpr')
+            # exchange_rate.yy_efee_r = obj.get('yy_efee_r')
+            # exchange_rate.ten_dd_efee_r = obj.get('ten_dd_efee_r')
+            # exchange_rate.kftc_bkpr = obj.get('kftc_bkpr')
+            # exchange_rate.kftc_deal_bas_r = obj.get('kftc_deal_bas_r')
+            # exchange_rate.cur_nm = obj.get('cur_nm')
+            # exchange_rate.save()
         else:
-            ExchangeRate.objects.create(
-                cur_unit = obj.get('cur_unit'),
-                ttb = obj.get('ttb'),
-                tts = obj.get('tts'),
-                deal_bas_r = obj.get('deal_bas_r'),
-                bkpr = obj.get('bkpr'),
-                yy_efee_r = obj.get('yy_efee_r'),
-                ten_dd_efee_r = obj.get('ten_dd_efee_r'),
-                kftc_bkpr = obj.get('kftc_bkpr'),
-                kftc_deal_bas_r = obj.get('kftc_deal_bas_r'),
-                cur_nm = obj.get('cur_nm'),
-            )
+            serializer = ExchangeRateSerializer(data=obj)
+        if serializer.is_valid():
+            serializer.save()
+            
+            # ExchangeRate.objects.create(
+            #     cur_unit = obj.get('cur_unit'),
+            #     ttb = obj.get('ttb'),
+            #     tts = obj.get('tts'),
+            #     deal_bas_r = obj.get('deal_bas_r'),
+            #     bkpr = obj.get('bkpr'),
+            #     yy_efee_r = obj.get('yy_efee_r'),
+            #     ten_dd_efee_r = obj.get('ten_dd_efee_r'),
+            #     kftc_bkpr = obj.get('kftc_bkpr'),
+            #     kftc_deal_bas_r = obj.get('kftc_deal_bas_r'),
+            #     cur_nm = obj.get('cur_nm'),
+            # )
     return Response({'message':'okay'})
 
 
