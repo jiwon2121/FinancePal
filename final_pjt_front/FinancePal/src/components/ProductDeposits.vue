@@ -1,27 +1,35 @@
 <template>
   <div>
-    <h1>정기예금</h1>
     <hr>
-    <template v-for="deposit in deposits">
-      <p>{{ deposit.kor_co_nm }} | {{ deposit.fin_prdt_nm }}</p>
-      <hr>
-    </template>
+    <table>
+      <tr>
+        <th>금융기관</th>
+        <th>상품명</th>
+        <th>6개월</th>
+        <th>12개월</th>
+        <th>24개월</th>
+        <th>36개월</th>
+      </tr>
+
+      <template v-for="deposit in store.deposits">
+        <tr>
+          <td>{{ deposit.kor_co_nm }}</td>
+          <td>{{ deposit.fin_prdt_nm }}</td>
+          <td>{{ store.findSavingRate(deposit.depositoption_set, '6') }}</td>
+          <td>{{ store.findSavingRate(deposit.depositoption_set, '12') }}</td>
+          <td>{{ store.findSavingRate(deposit.depositoption_set, '24') }}</td>
+          <td>{{ store.findSavingRate(deposit.depositoption_set, '36') }}</td>
+        </tr>
+      </template>
+    </table>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { productStore } from '@/stores/productStore'
 
-const deposits = ref(null)
-axios({
-  url: 'http://127.0.0.1:8000/products/savings/',
-  method: 'get'
-})
-  .then(res => {
-    console.log(res.data)
-    deposits.value = res.data
-  })
+const store = productStore()
+
 
 </script>
 
