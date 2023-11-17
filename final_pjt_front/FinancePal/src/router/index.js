@@ -7,6 +7,7 @@ import ProductView from '@/views/ProductView.vue'
 import ProductDetailView from '@/views/ProductDetailView.vue'
 import ExchangeView from '@/views/ExchangeView.vue'
 import MapView from '@/views/MapView.vue'
+import WelcomeView from '@/views/WelcomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
       path: '/map',
       name: 'map',
       component: MapView
+    },
+    {
+      path: '/welcome',
+      name: 'welcome',
+      component: WelcomeView
     },
   ]
 })

@@ -85,25 +85,26 @@ const signUp = function () {
     password1: password1.value,
     password2: password2.value,
     nickname: nickname.value,
-    firstname: firstname.value,
-    lastname: lastname.value,
-    email: `${emailId.value}@${emailDomain}`,
+    first_name: firstname.value,
+    last_name: lastname.value,
+    email: `${emailId.value}@${emailDomain.value}`,
     address: address.value,
-    birthDate: birthDate.value,
+    birth_date: birthDate.value,
     gender: gender.value,
     salary: salary.value,
     balance: balance.value,
   }
   
   axios({
-    method:'post',
-    url: 'http://127.0.0.1:8000/accounts/signup',
+    method: 'post',
+    url: 'http://127.0.0.1:8000/accounts/signup/',
     data
   })
     .then(res => {
       console.log(res)
     })
     .catch(err => {
+      console.log(data)
       console.log(err)
     })
 }
