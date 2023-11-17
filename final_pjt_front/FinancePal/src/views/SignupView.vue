@@ -61,7 +61,10 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
+
+const router = useRouter()
 
 const username = ref(null)
 const password1 = ref(null)
@@ -102,6 +105,7 @@ const signUp = function () {
   })
     .then(res => {
       console.log(res)
+      router.push({name: 'welcome'})
     })
     .catch(err => {
       console.log(data)

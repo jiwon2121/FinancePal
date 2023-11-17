@@ -16,7 +16,8 @@
         <span> | </span>
       </template>
       <template v-else>
-        <RouterLink :to="{ name: 'login'}">로그인</RouterLink>
+        <!-- <RouterLink :to="{ name: 'login'}">로그인</RouterLink> -->
+        <button @click="goLogin">로그인</button>
         <span> | </span>
         <RouterLink :to="{ name: 'signup'}">회원가입</RouterLink>
         <span> | </span>
@@ -29,9 +30,14 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { accountStore } from '@/stores/accountStore'
+import { useRouter } from 'vue-router'
 
 const accStore = accountStore()
+const router = useRouter()
 
+const goLogin = function () {
+  router.push({name: 'login'})
+}
 </script>
 
 <style scoped>

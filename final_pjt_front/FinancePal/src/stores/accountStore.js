@@ -6,8 +6,10 @@ import axios from 'axios'
 export const accountStore = defineStore('account', () => {
   const API_URL = 'http://127.0.0.1:8000'
   const router = useRouter()
+  
   const user = ref(null)
   const token = ref(null)
+
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -27,10 +29,10 @@ export const accountStore = defineStore('account', () => {
       }
     })
     .then(res => {
-      console.log(res.data)
+      const back = history.state.back
       token.value = res.data.key
       user.value = username
-      router.push({name: 'welcome'})
+      router.replace(`${back}`)
     })
     .catch(err => {
       console.log(err)
