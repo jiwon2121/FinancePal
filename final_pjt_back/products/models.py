@@ -20,7 +20,7 @@ class Deposit(models.Model):
 
 
 class DepositOption(models.Model):
-    product = models.ForeignKey("Deposit", on_delete=models.CASCADE)
+    product = models.ForeignKey(Deposit, on_delete=models.CASCADE)
     intr_rate_type = models.CharField(max_length=20)                    # 저축 금리 유형
     intr_rate_type_nm = models.CharField(max_length=20)                 # 저축 금리 유형명
     save_trm = models.CharField(max_length=10)                          # 저축 기간 [단위: 개월]
@@ -47,7 +47,7 @@ class Saving(models.Model):
 
 
 class SavingOption(models.Model):
-    product = models.ForeignKey("Saving", on_delete=models.CASCADE)
+    product = models.ForeignKey(Saving, on_delete=models.CASCADE)
     intr_rate_type = models.CharField(max_length=20)                    # 저축 금리 유형
     intr_rate_type_nm = models.CharField(max_length=20)                 # 저축 금리 유형명
     rsrv_type = models.CharField(max_length=20)                         # 적립 유형
