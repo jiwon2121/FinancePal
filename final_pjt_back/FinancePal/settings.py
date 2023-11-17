@@ -162,3 +162,26 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.AllowAny',
     ],
 }
+
+
+# ALL AUTH 수정
+# dj-rest-auth는 email을 필수적으로 사용하도록 구현되어 있으므로, 해당 사항을 수정
+ACCOUNT_EMAIL_REQUIRED = False
+ACCOUNT_EMAIL_VERIFICATION = None
+
+# django 인증 시스템에서 사용할 백엔드 클래스 지정
+# 기본 인증 백엔드와 allauth 패키지에서 제공하는 인증 백엔드를 모두 사용하겠다는 설정.
+AUTHENTICATION_BACKENDS = (
+    # django 기본 인증 백엔드
+    "django.contrib.auth.backends.ModelBackend",
+    # django-allauth 패키지에서 제공하는 인증 백엔드 클래스
+    "allauth.account.auth_backends.AuthenticationBackend",
+)
+
+# REST-AUTH 회원가입 기본 Serailizer 재정의
+REST_AUTH = {
+'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
+}
+ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
+
+DATE_INPUT_FORMATS = ['%Y-%m-%d']
