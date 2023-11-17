@@ -140,7 +140,7 @@ def savings(request):
     if request.method == "GET":
         products = Saving.objects.all()
         serializer = SavingSerializer(products, many=True)
-    return Response(serializer.data)
+        return Response(serializer.data)
 
 
 @api_view(['GET'])
@@ -148,15 +148,5 @@ def saving_detail(request, pk):
     # pk = fin_prdt_cd
     if request.method == "GET":
         product = Saving.objects.get(pk=pk)
-        detail = SavingSerializer(product)
-        options = SavingOption.objects.filter(product=pk)
-
-        options_list = []
-        for option in options:
-            option_serializer = SavingOptionSerializer(option)
-            options_list.append(option_serializer.data)
-        serializer = {
-            'detail': detail.data,
-            'options': options_list,
-        }
-        return Response(serializer)
+        serializer = SavingSerializer(product)
+        return Response(serializer.data)
