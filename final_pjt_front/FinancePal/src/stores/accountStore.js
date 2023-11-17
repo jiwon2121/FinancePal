@@ -1,12 +1,15 @@
 import { defineStore } from "pinia"
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 export const accountStore = defineStore('account', () => {
-  // const API_URL = 'http://127.0.0.1:8000'
-  const user = ref({
-    username: 'USER',
-  })
+  const API_URL = 'http://127.0.0.1:8000'
+  const router = useRouter()
+  
+  const user = ref(null)
   const token = ref(null)
+
   const isLogin = computed(() => {
     if (token.value === null) {
       return false
@@ -26,8 +29,10 @@ export const accountStore = defineStore('account', () => {
       }
     })
     .then(res => {
-      console.log(res.data)
+      const back = history.state.back
       token.value = res.data.key
+      user.value = username
+      router.replace(`${back}`)
     })
     .catch(err => {
       console.log(err)
@@ -35,8 +40,9 @@ export const accountStore = defineStore('account', () => {
   }
 
   const logOut = function() {
-    token.value = null
+    localStorage.removeItem('account')
+    location.reload()
   }
 
   return { user, token, isLogin, logIn, logOut }
-})
+}, { persist: true })

@@ -2,15 +2,17 @@
   <div>
     <h1>Login</h1>
     <form @submit.prevent="logIn">
-      <input type="text" v-model.tirm="username">
-      <input type="password" v-model.trim="password">
+      <input type="text" id="username" v-model.tirm="username" placeholder="아이디를 입력하세요">
+      <br>
+      <input type="password" id="password" v-model.trim="password" placeholder="비밀번호를 입력하세요">
+      <br>
       <input type="submit">
     </form>
   </div>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import { accountStore } from '@/stores/accountStore'
 
 const store = accountStore()
