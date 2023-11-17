@@ -5,12 +5,14 @@ from django.conf import settings
 import requests
 from .serializers import DepositSerializer, DepositOptionSerializer, SavingSerializer, SavingOptionSerializer
 from .models import Deposit, DepositOption, Saving, SavingOption
+# from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
 
 '''
 예금 상품 조회
 '''
+# @staff_member_required
 @api_view(['GET'])
 def save_deposit_products(request):
     api_key = settings.PRODUCT_API_KEY

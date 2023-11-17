@@ -5,8 +5,10 @@ from django.conf import settings
 import requests
 from .serializers import ExchangeRateSerializer
 from .models import ExchangeRate
+# from django.contrib.admin.views.decorators import staff_member_required
 
 # Create your views here.
+# @staff_member_required
 @api_view(['GET'])
 def save(request):
     api_key = settings.EXCHANGE_RATE_API_KEY
