@@ -27,9 +27,22 @@
 
 <script setup>
 import { productStore } from '@/stores/productStore'
+import { onMounted } from 'vue'
 
 const store = productStore()
 
+onMounted(() => {
+  axios({
+    url: `${API_URL}/products/savings/`,
+    method: 'get'
+  })
+    .then(res => {
+      savings.value = res.data
+    })
+    .catch(err => {
+      console.log(err)
+    })
+})
 
 </script>
 
