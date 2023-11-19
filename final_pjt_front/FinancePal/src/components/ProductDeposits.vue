@@ -32,17 +32,7 @@ import { onMounted } from 'vue'
 const store = productStore()
 
 onMounted(() => {
-  axios({
-    url: `${API_URL}/products/deposits/`,
-    method: 'get'
-  })
-    .then(res => {
-      console.log(res.data)
-      deposits.value = res.data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+  store.updateDeposit()
 })
 
 </script>
