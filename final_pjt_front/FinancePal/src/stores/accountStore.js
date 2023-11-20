@@ -8,7 +8,10 @@ export const accountStore = defineStore('account', () => {
   const router = useRouter()
   
   const user = ref(null)
+  const userPk = ref(null)
   const token = ref(null)
+  const isSuper = ref(null)
+  const isStaff = ref(null)
 
   const isLogin = computed(() => {
     if (token.value === null) {
@@ -28,15 +31,25 @@ export const accountStore = defineStore('account', () => {
         username, password
       }
     })
-    .then(res => {
-      const back = history.state.back
-      token.value = res.data.key
-      user.value = username
-      router.replace(`${back}`)
+      .then(res => {
+        const back = history.state.back
+        token.value = res.data.key
+        user.value = username
+        router.replace(`${back}`)
+      })
+      .catch(err => {
+        console.log(err)
+      })
+
+    axios({
+      method: 'post',
+      url: `${API_URL}/profile/permission/${username}/`
     })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(res => {
+        isStaff.value = res.data.is_staff
+        isSuper.value = res.data.is_super
+        userPk.value = res.data.pk
+      })
   }
 
   const logOut = function() {
@@ -44,5 +57,5 @@ export const accountStore = defineStore('account', () => {
     location.reload()
   }
 
-  return { user, token, isLogin, logIn, logOut }
+  return { user, token, isStaff, isSuper, userPk, isLogin, logIn, logOut }
 }, { persist: true })

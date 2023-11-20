@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from django.shortcuts import render
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.contrib.auth import get_user_model
 from .models import Article, Comment
 from .serializers import ArticleSerializer, CommentSerializer
 from rest_framework import status
@@ -15,8 +16,11 @@ def article_list(request, board_type):
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = ArticleSerializer(data=request.data)
+        # print('>>>>>>>>>>>>', request.data.get('user_id'))
+        user_model = get_user_model()
+        user = user_model.objects.get(pk=request.data.get('user_id'))
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
+            serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

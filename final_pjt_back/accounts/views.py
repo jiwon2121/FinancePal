@@ -15,6 +15,18 @@ def profile(request, username):
         serializer = ProfileSerializer(user)
         return Response(serializer.data)
     
+    
+@api_view(['POST'])
+def permission(request, username):
+    if request.method == 'POST':
+        user = User.objects.get(username=username)
+        res = {
+            'is_super': user.is_superuser,
+            'is_staff': user.is_staff,
+            'pk': user.pk
+        }
+        return Response(res)
+
 
 
 @api_view(['GET'])
