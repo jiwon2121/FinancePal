@@ -8,9 +8,9 @@ from rest_framework.decorators import api_view
 
 # Create your views here.
 @api_view(['GET', 'POST'])
-def article_list(request):
+def article_list(request, board_type):
     if request.method == 'GET':
-        articles = get_list_or_404(Article)
+        articles = get_list_or_404(Article, board_type=board_type)
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -20,8 +20,9 @@ def article_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def article_detail(request, article_pk):
+def article_detail(request, board_type, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'GET':
         serializer = ArticleSerializer(article)

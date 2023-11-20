@@ -196,6 +196,9 @@ AUTHENTICATION_BACKENDS = (
 REST_AUTH = {
 'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer',
 }
+REST_AUTH_SERIALIZERS = {
+    'USER_DETAILS_SERIALIZER': 'rest_auth.views.UserDetailsView',
+}
 ACCOUNT_ADAPTER = 'accounts.models.CustomAccountAdapter'
 
 DATE_INPUT_FORMATS = ['%Y-%m-%d']
