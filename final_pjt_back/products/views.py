@@ -18,44 +18,23 @@ def save_deposit_products(request):
     api_key = settings.PRODUCT_API_KEY
     url = f'http://finlife.fss.or.kr/finlifeapi/depositProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
-    for li in response.get('result').get("baseList"):
-        products = {
-            'dcls_month': li.get('dcls_month'),
-            'fin_co_no': li.get('fin_co_no'),
-            'fin_prdt_cd': li.get('fin_prdt_cd'),
-            'kor_co_nm': li.get('kor_co_nm'),
-            'fin_prdt_nm': li.get('fin_prdt_nm'),
-            'join_way': li.get('join_way'),
-            'mtrt_int': li.get('mtrt_int'),
-            'spcl_cnd': li.get('spcl_cnd'),
-            'join_deny': li.get('join_deny'),
-            'join_member': li.get('join_member'),
-            'etc_note': li.get('etc_note'),
-            'max_limit': li.get('max_limit'),
-            'dcls_strt_day': li.get('dcls_strt_day'),
-            'dcls_end_day': li.get('dcls_end_day'),
-            'fin_co_subm_day': li.get('fin_co_subm_day'),
-        }
-
-        products_serializer = DepositSerializer(data=products)
+    for obj in response.get('result').get("baseList"):
+        if Deposit.objects.filter(pk=obj.get('fin_prdt_cd')).exists():
+            instance = Deposit.objects.get(pk=obj.get('fin_prdt_cd'))
+            products_serializer = DepositSerializer(instance=instance, data=obj, partial=True)
+        else:
+            products_serializer = DepositSerializer(data=obj)
         if products_serializer.is_valid(raise_exception=True):
             products_serializer.save()
-
-    for li in response.get('result').get('optionList'):
-        options = {
-            'intr_rate_type': li.get('intr_rate_type'),
-            'intr_rate_type_nm': li.get('intr_rate_type_nm'),
-            'save_trm': li.get('save_trm'),
-            'intr_rate': li.get('intr_rate') if li.get('intr_rate') != None else -1,
-            'intr_rate2': li.get('intr_rate2'),
-        }
-
-        product = Deposit.objects.get(fin_prdt_cd=li.get('fin_prdt_cd'))
-        options_serializer = DepositOptionSerializer(data=options)
-
+    for obj in response.get('result').get('optionList'):
+        product = Deposit.objects.get(pk=obj.get('fin_prdt_cd'))
+        if DepositOption.objects.filter(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm')).exists():
+            instance = DepositOption.objects.get(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm'))
+            options_serializer = DepositOptionSerializer(instance=instance, data=obj, partial=True)
+        else:
+            options_serializer = DepositOptionSerializer(data=obj)
         if options_serializer.is_valid(raise_exception=True):
             options_serializer.save(product=product)
-
     return Response({'message':'okay'})
 
 
@@ -83,46 +62,23 @@ def save_saving_products(request):
     api_key = settings.PRODUCT_API_KEY
     url = f'http://finlife.fss.or.kr/finlifeapi/savingProductsSearch.json?auth={api_key}&topFinGrpNo=020000&pageNo=1'
     response = requests.get(url).json()
-    for li in response.get('result').get("baseList"):
-        products = {
-            'dcls_month': li.get('dcls_month'),
-            'fin_co_no': li.get('fin_co_no'),
-            'fin_prdt_cd': li.get('fin_prdt_cd'),
-            'kor_co_nm': li.get('kor_co_nm'),
-            'fin_prdt_nm': li.get('fin_prdt_nm'),
-            'join_way': li.get('join_way'),
-            'mtrt_int': li.get('mtrt_int'),
-            'spcl_cnd': li.get('spcl_cnd'),
-            'join_deny': li.get('join_deny'),
-            'join_member': li.get('join_member'),
-            'etc_note': li.get('etc_note'),
-            'max_limit': li.get('max_limit'),
-            'dcls_strt_day': li.get('dcls_strt_day'),
-            'dcls_end_day': li.get('dcls_end_day'),
-            'fin_co_subm_day': li.get('fin_co_subm_day'),
-        }
-
-        products_serializer = SavingSerializer(data=products)
+    for obj in response.get('result').get("baseList"):
+        if Saving.objects.filter(pk=obj.get('fin_prdt_cd')).exists():
+            instance = Saving.objects.get(pk=obj.get('fin_prdt_cd'))
+            products_serializer = SavingSerializer(instance=instance, data=obj, partial=True)
+        else:
+            products_serializer = SavingSerializer(data=obj)
         if products_serializer.is_valid(raise_exception=True):
             products_serializer.save()
-
-    for li in response.get('result').get('optionList'):
-        options = {
-            'intr_rate_type': li.get('intr_rate_type'),
-            'intr_rate_type_nm': li.get('intr_rate_type_nm'),
-            'rsrv_type': li.get('rsrv_type'),
-            'rsrv_type_nm': li.get('rsrv_type_nm'),
-            'save_trm': li.get('save_trm'),
-            'intr_rate': li.get('intr_rate') if li.get('intr_rate') != None else -1,
-            'intr_rate2': li.get('intr_rate2'),
-        }
-
-        product = Saving.objects.get(fin_prdt_cd=li.get('fin_prdt_cd'))
-        options_serializer = SavingOptionSerializer(data=options)
-
+    for obj in response.get('result').get('optionList'):
+        product = Saving.objects.get(pk=obj.get('fin_prdt_cd'))
+        if SavingOption.objects.filter(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm')).exists():
+            instance = SavingOption.objects.get(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm'))
+            options_serializer = SavingOptionSerializer(instance=instance, data=obj, partial=True)
+        else:
+            options_serializer = SavingOptionSerializer(data=obj)
         if options_serializer.is_valid(raise_exception=True):
             options_serializer.save(product=product)
-
     return Response({'message':'okay'})
 
 
