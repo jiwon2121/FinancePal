@@ -1,4 +1,5 @@
 from django.db import models
+from products.models import Deposit, Saving
 from django.contrib.auth.models import AbstractUser
 from allauth.account.adapter import DefaultAccountAdapter
 
@@ -10,8 +11,8 @@ class User(AbstractUser):
     gender = models.BooleanField() # true: 남자, false: 여자
     salary = models.IntegerField()
     balance = models.IntegerField()
-    # deposit_products = models.ManyToManyField()
-    # saving_products = models.ManyToManyField()
+    deposit_products = models.ManyToManyField(to=Deposit, blank=True)
+    saving_products = models.ManyToManyField(to=Saving, blank=True)
     # profile_img = models.ImageField(blank=True)
     # follower = models.ManyToManyField()
 

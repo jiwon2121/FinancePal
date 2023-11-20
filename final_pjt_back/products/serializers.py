@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Deposit, DepositOption, Saving, SavingOption
-
+from accounts.serializers import UserSerializer
 
 class DepositOptionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,6 +10,7 @@ class DepositOptionSerializer(serializers.ModelSerializer):
 
 
 class DepositSerializer(serializers.ModelSerializer):
+    user_set = UserSerializer(many=True, read_only=True)
     depositoption_set = DepositOptionSerializer(many=True, read_only=True)
     class Meta:
         model = Deposit
@@ -24,6 +25,7 @@ class SavingOptionSerializer(serializers.ModelSerializer):
 
 
 class SavingSerializer(serializers.ModelSerializer):
+    user_set = UserSerializer(many=True, read_only=True)
     savingoption_set = SavingOptionSerializer(many=True, read_only=True)
     class Meta:
         model = Saving
