@@ -9,6 +9,8 @@
       <span> | </span>
       <RouterLink :to="{ name: 'map'}">주위 은행</RouterLink>
       <span> | </span>
+      <RouterLink :to="{ name: 'boards', params:{page: 1}}">게시판</RouterLink>
+      <span> | </span>
       <template v-if="accStore.isLogin">
         <RouterLink :to="{ name: 'profile', params: { username: accStore.user }}">프로필</RouterLink>
         <span> | </span>
