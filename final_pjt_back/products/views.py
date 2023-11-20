@@ -69,21 +69,10 @@ def deposits(request):
 
 @api_view(['GET'])
 def deposit_detail(request, pk):
-    # pk = fin_prdt_cd
     if request.method == "GET":
         product = Deposit.objects.get(pk=pk)
-        detail = DepositSerializer(product)
-        options = DepositOption.objects.filter(product=pk)
-
-        options_list = []
-        for option in options:
-            option_serializer = DepositOptionSerializer(option)
-            options_list.append(option_serializer.data)
-        serializer = {
-            'detail': detail.data,
-            'options': options_list,
-        }
-        return Response(serializer)
+        serializer = DepositSerializer(product)
+        return Response(serializer.data)
     
 
 '''

@@ -19,6 +19,9 @@
           <td>{{ store.findSavingRate(deposit.depositoption_set, '12') }}</td>
           <td>{{ store.findSavingRate(deposit.depositoption_set, '24') }}</td>
           <td>{{ store.findSavingRate(deposit.depositoption_set, '36') }}</td>
+          <td>
+            <button @click="goDetail(deposit)">상품 상세 보기</button>
+          </td>
         </tr>
       </template>
     </table>
@@ -28,12 +31,19 @@
 <script setup>
 import { productStore } from '@/stores/productStore'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = productStore()
+const router = useRouter()
 
 onMounted(() => {
   store.updateDeposit()
 })
+
+const goDetail = function (deposit) {
+  console.log(deposit.fin_prdt_cd)
+  router.push({name: 'productDetail', params: {type: 'deposits', pk: deposit.fin_prdt_cd}})
+}
 
 </script>
 
