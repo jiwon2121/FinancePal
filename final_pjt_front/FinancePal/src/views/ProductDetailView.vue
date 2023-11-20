@@ -23,7 +23,7 @@ const product = ref(null)
 
 axios({
   method: 'get',
-  url: `http://127.0.0.1:8000/products/${route.params.type}/${route.params.pk}`
+  url: `http://127.0.0.1:8000/products/${route.params.type}/${route.params.pk}/`
 })
   .then((res) => {
     product.value = res.data
