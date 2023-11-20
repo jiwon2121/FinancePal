@@ -26,28 +26,31 @@ export const productStore = defineStore('product', () => {
     }
   }
 
-  axios({
-    url: `${API_URL}/products/deposits/`,
-    method: 'get'
-  })
-    .then(res => {
-      console.log(res.data)
-      deposits.value = res.data
+  const updateDeposit = function() {
+    axios({
+      url: `${API_URL}/products/deposits/`,
+      method: 'get'
     })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(res => {
+        deposits.value = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
-  axios({
-    url: `${API_URL}/products/savings/`,
-    method: 'get'
-  })
-    .then(res => {
-      savings.value = res.data
+  const updateSaving = function() {
+    axios({
+      url: `${API_URL}/products/savings/`,
+      method: 'get'
     })
-    .catch(err => {
-      console.log(err)
-    })
+      .then(res => {
+        savings.value = res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 
-  return { deposits, savings, findDepositRate, findSavingRate }
+  return { deposits, savings, findDepositRate, findSavingRate,updateDeposit, updateSaving }
 })

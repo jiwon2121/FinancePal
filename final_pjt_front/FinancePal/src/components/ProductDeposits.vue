@@ -27,9 +27,13 @@
 
 <script setup>
 import { productStore } from '@/stores/productStore'
+import { onMounted } from 'vue'
 
 const store = productStore()
 
+onMounted(() => {
+  store.updateDeposit()
+})
 
 </script>
 
