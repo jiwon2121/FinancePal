@@ -7,8 +7,7 @@ export const accountStore = defineStore('account', () => {
   const API_URL = 'http://127.0.0.1:8000'
   const router = useRouter()
   
-  const user = ref(null)
-  const userPk = ref(null)
+  const userName = ref(null)
   const token = ref(null)
   const isSuper = ref(null)
   const isStaff = ref(null)
@@ -34,7 +33,7 @@ export const accountStore = defineStore('account', () => {
       .then(res => {
         const back = history.state.back
         token.value = res.data.key
-        user.value = username
+        userName.value = username
         router.replace(`${back}`)
       })
       .catch(err => {
@@ -48,7 +47,6 @@ export const accountStore = defineStore('account', () => {
       .then(res => {
         isStaff.value = res.data.is_staff
         isSuper.value = res.data.is_super
-        userPk.value = res.data.pk
       })
   }
 
@@ -57,5 +55,5 @@ export const accountStore = defineStore('account', () => {
     location.reload()
   }
 
-  return { user, token, isStaff, isSuper, userPk, isLogin, logIn, logOut }
+  return { userName, token, isStaff, isSuper, isLogin, logIn, logOut }
 }, { persist: true })

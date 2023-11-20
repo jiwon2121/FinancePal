@@ -9,6 +9,7 @@ import ExchangeView from '@/views/ExchangeView.vue'
 import MapView from '@/views/MapView.vue'
 import WelcomeView from '@/views/WelcomeView.vue'
 import BoardsView from '@/views/BoardsView.vue'
+import BoardsDetailView from '@/views/BoardsDetailView.vue'
 import BoardsCreateView from '@/views/BoardsCreateView.vue'
 
 const router = createRouter({
@@ -60,9 +61,14 @@ const router = createRouter({
       component: WelcomeView
     },
     {
-      path: '/boards/:page',
+      path: '/boards/',
       name: 'boards',
       component: BoardsView
+    },
+    {
+      path: '/boards/:pk',
+      name: 'boardsDetail',
+      component: BoardsDetailView
     },
     {
       path: '/boards/create',

@@ -18,7 +18,7 @@ def article_list(request, board_type):
         serializer = ArticleSerializer(data=request.data)
         # print('>>>>>>>>>>>>', request.data.get('user_id'))
         user_model = get_user_model()
-        user = user_model.objects.get(pk=request.data.get('user_id'))
+        user = user_model.objects.get(username=request.data.get('username'))
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
