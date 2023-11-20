@@ -28,7 +28,6 @@ def permission(request, username):
         res = {
             'is_super': user.is_superuser,
             'is_staff': user.is_staff,
-            'pk': user.pk
         }
         return Response(res)
 

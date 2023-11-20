@@ -33,7 +33,7 @@ const content = ref('')
 
 const create = function() {
   const data = {
-    user_id: store.userPk,
+    username: store.userName,
     board_type: boardType.value,
     title: title.value,
     content: content.value
@@ -45,7 +45,7 @@ const create = function() {
     data
   })
     .then(res => {
-      router.replace({name: 'boards', params: {page: 1}})
+      router.replace({name: 'boards'})
     })
     .catch(err => {
       console.log(err)
