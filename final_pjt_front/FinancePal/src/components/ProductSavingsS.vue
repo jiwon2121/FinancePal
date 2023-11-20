@@ -19,6 +19,9 @@
           <td>{{ store.findSavingRate(saving.savingoption_set, '12', 'S') }}</td>
           <td>{{ store.findSavingRate(saving.savingoption_set, '24', 'S') }}</td>
           <td>{{ store.findSavingRate(saving.savingoption_set, '36', 'S') }}</td>
+          <td>
+            <button @click="goDetail(saving)">상품 상세 보기</button>
+          </td>
         </tr>
       </template>
     </table>
@@ -28,12 +31,19 @@
 <script setup>
 import { productStore } from '@/stores/productStore'
 import { onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
 const store = productStore()
+const router = useRouter()
 
 onMounted(() => {
   store.updateSaving()
 })
+
+const goDetail = function (saving) {
+  console.log(saving.fin_prdt_cd)
+  router.push({name: 'productDetail', params: {type: 'savings', pk: saving.fin_prdt_cd}})
+}
 
 </script>
 

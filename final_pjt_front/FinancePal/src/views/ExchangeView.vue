@@ -25,16 +25,29 @@ const store = exchangeStore()
 const country = ref('미국 달러')
 const exchangeRate = computed(() => {
   const idx = store.exchangeList.findIndex((ele) => ele.cur_nm === country.value)
-  return store.exchangeList[idx].deal_bas_r
+  const ex = store.exchangeList[idx].deal_bas_r.replace(',', '')
+  return parseFloat(ex)
 })
 const korInput = ref(0)
 const otherInput = ref(0)
 
 const calOther = function() {
-  otherInput.value = korInput.value / exchangeRate.value
+  const temp = korInput.value / exchangeRate.value
+  if (temp >= 1) {
+    otherInput.value = temp.toFixed(2)
+  } else {
+    const expo = temp.toExponential(1)
+    otherInput.value = parseFloat(expo)
+  }
 }
 const calKor = function() {
-  korInput.value = otherInput.value * exchangeRate.value
+  const temp = otherInput.value * exchangeRate.value
+  if (temp >= 1) {
+    korInput.value = temp.toFixed(2)
+  } else {
+    const expo = temp.toExponential(1)
+    korInput.value = parseFloat(expo)
+  }
 }
 
 
