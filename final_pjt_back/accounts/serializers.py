@@ -55,4 +55,10 @@ class CustomRegisterSerializer(RegisterSerializer):
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = '__all__'
+        fields = ('username', 'first_name', 'last_name', 'email', 'nickname', 'address', 'birth_date', 'gender', 'salary', 'balance', 'deposit_products', 'saving_products')
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('nickname', 'birth_date', 'gender', 'salary', 'balance')

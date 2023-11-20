@@ -18,7 +18,7 @@ def save(request):
         if obj.get('cur_unit').endswith('(100)'):
             obj = {
                 'cur_unit': obj.get('cur_unit')[-5:],
-                'ttb': str(round(float(obj.get('ttb')) * 0.01), 2),
+                'ttb': str(round(float(obj.get('ttb')) * 0.01, 2)),
                 'tts': str(round(float(obj.get('tts')) * 0.01, 2)),
                 'deal_bas_r': str(round(float(obj.get('deal_bas_r')) * 0.01, 2)),
                 'bkpr': str(round(float(obj.get('bkpr')) * 0.01, 2)),
