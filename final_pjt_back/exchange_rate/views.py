@@ -22,7 +22,6 @@ def save(request):
                 'tts': str(float(obj.get('tts')) * 0.01),
                 'deal_bas_r': str(float(obj.get('deal_bas_r')) * 0.01),
                 'bkpr': str(float(obj.get('bkpr')) * 0.01),
-
                 'yy_efee_r': obj.get('yy_efee_r'),
                 'ten_dd_efee_r': obj.get('ten_dd_efee_r'),
                 'kftc_bkpr': str(float(obj.get('ttb')) * 0.01),
