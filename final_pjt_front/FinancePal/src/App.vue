@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg">
+    <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" :to="{ name: 'main'}">FinancePal</RouterLink>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -20,24 +20,25 @@
             <li class="nav-item">
               <RouterLink class="nav-link" :to="{ name: 'boards'}">게시판</RouterLink>
             </li>
-            <template v-if="accStore.isLogin">
-              <li class="nav-item">
-                <RouterLink class="nav-link" :to="{ name: 'profile', params: { username: accStore.userName }}">프로필</RouterLink>
-              </li>
-              <button @click="accStore.logOut">로그아웃</button>
-            </template>
-            <template v-else>
-              <!-- <RouterLink :to="{ name: 'login'}">로그인</RouterLink> -->
-              <button @click="goLogin">로그인</button>
-              <li class="nav-item">
-                <RouterLink class="nav-link" :to="{ name: 'signup'}">회원가입</RouterLink>
-              </li>
-            </template>
+            <div class="profile-auth d-flex">
+              <template v-if="accStore.isLogin">
+                <li class="nav-item mx-auto">
+                  <RouterLink class="nav-link" :to="{ name: 'profile', params: { username: accStore.userName }}">프로필</RouterLink>
+                </li>
+                <button type="button" class="btn btn-outline-info" @click="accStore.logOut">로그아웃</button>
+              </template>
+              <template v-else>
+                <button type="button" class="btn btn-outline-info" @click="goLogin">로그인</button>
+                <li class="nav-item">
+                  <RouterLink class="nav-link" :to="{ name: 'signup'}">회원가입</RouterLink>
+                </li>
+              </template>
+            </div>
           </ul>
         </div>
       </div>
     </nav>
-    <RouterView class="mt-5"/>
+    <RouterView class="router-view"/>
   </div>
 </template>
 
@@ -60,8 +61,16 @@ const goLogin = function () {
 }
 .navbar-brand {
   color: #AFD3E2;
+  margin-left: 5%;
 }
 .nav-link {
   color: #F6F1F1;
+}
+.router-view {
+  margin-top: 75px;
+}
+.profile-auth {
+  position: absolute;
+  margin-left: 65%;
 }
 </style>

@@ -1,12 +1,9 @@
 <template>
   <div>
-    <h1>ProfileView</h1>
-    {{ profile }}
-    <h3>{{ profile.nickname }}님의 프로필</h3>
+    <h1>{{ profile.nickname }}님의 프로필</h1>
     <p>생일 : {{ profile.birth_date }}</p>
-    <p>email : {{ profile.email }}</p>
-    <p>first name: {{ profile.first_name }}</p>
-    <p>last name: {{ profile.last_name }}</p>
+    <p>이메일 : {{ profile.email }}</p>
+    <p>이름: {{ profile.first_name }}{{ profile.last_name }}</p>
   </div>
 </template>
 

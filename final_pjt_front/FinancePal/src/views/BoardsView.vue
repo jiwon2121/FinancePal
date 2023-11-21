@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="header">
     <h1>게시판</h1>
     <button @click="changeType('free')">자유게시판</button>
     <button @click="changeType('qna')">Q&A</button>
@@ -30,5 +30,7 @@ const create = function() {
 </script>
 
 <style scoped>
-
+.header {
+  margin-top: 100px;
+}
 </style>
