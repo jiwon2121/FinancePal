@@ -16,7 +16,6 @@ def article_list(request, board_type):
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = ArticleSerializer(data=request.data)
-        # print('>>>>>>>>>>>>', request.data.get('user_id'))
         user_model = get_user_model()
         user = user_model.objects.get(username=request.data.get('username'))
         if serializer.is_valid(raise_exception=True):
@@ -26,15 +25,17 @@ def article_list(request, board_type):
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def article_detail(request, board_type, article_pk):
+def article_detail(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     if request.method == 'GET':
         serializer = ArticleSerializer(article)
         return Response(serializer.data)
     elif request.method == 'POST':
         serializer = CommentSerializer(data=request.data)
+        user_model = get_user_model()
+        user = user_model.objects.get(username=request.data.get('username'))
         if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user, article=article)
+            serializer.save(user=user, article=article)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
     elif request.method == 'PUT':
         serializer = ArticleSerializer(article, data=request.data)
