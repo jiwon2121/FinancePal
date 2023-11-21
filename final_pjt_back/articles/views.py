@@ -11,7 +11,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET', 'POST'])
 def article_list(request, board_type):
     if request.method == 'GET':
-        articles = get_list_or_404(Article, board_type=board_type)
+        articles = get_list_or_404(Article.objects.order_by('-pk'), board_type=board_type)
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
@@ -21,7 +21,6 @@ def article_list(request, board_type):
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 
 @api_view(['GET', 'POST', 'PUT', 'DELETE'])
