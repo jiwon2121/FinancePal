@@ -1,7 +1,6 @@
 <template>
   <div>
     <h1>ProfileView</h1>
-    {{ profile }}
     <h3>{{ profile.nickname }}님의 프로필</h3>
     <p>생일 : {{ profile.birth_date }}</p>
     <p>email : {{ profile.email }}</p>
