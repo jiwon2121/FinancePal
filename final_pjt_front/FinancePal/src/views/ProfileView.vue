@@ -5,6 +5,8 @@
     <h3>{{ profile.nickname }}님의 프로필</h3>
     <p>생일 : {{ profile.birth_date }}</p>
     <p>email : {{ profile.email }}</p>
+    <p>first name: {{ profile.first_name }}</p>
+    <p>last name: {{ profile.last_name }}</p>
   </div>
 </template>
 
