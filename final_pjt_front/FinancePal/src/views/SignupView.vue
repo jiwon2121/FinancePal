@@ -15,11 +15,11 @@
       <br>
 
       <p>lastname</p>
-      <input type="text" id="lastname" v-model="lastname">
+      <input type="text" id="lastname" ref="lastname">
       <br>
 
       <p>firstname</p>
-      <input type="text" id="firstname" v-model="firstname">
+      <input type="text" id="firstname" ref="firstname">
       <br>
 
       <p>nickname</p>
@@ -88,8 +88,8 @@ const signUp = function () {
     password1: password1.value,
     password2: password2.value,
     nickname: nickname.value,
-    first_name: firstname.value,
-    last_name: lastname.value,
+    first_name: firstname.value.value,
+    last_name: lastname.value.value,
     email: `${emailId.value}@${emailDomain.value}`,
     address: address.value,
     birth_date: birthDate.value,
@@ -97,7 +97,7 @@ const signUp = function () {
     salary: salary.value,
     balance: balance.value,
   }
-  
+  console.log(data)
   axios({
     method: 'post',
     url: 'http://127.0.0.1:8000/accounts/signup/',

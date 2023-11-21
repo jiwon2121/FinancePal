@@ -16,8 +16,6 @@ def profile(request, username):
     if request.method == 'GET':
         user = User.objects.get(username=username)
         user_serializer = ProfileSerializer(user)
-        deposit_products = user.deposit_products
-        saving_products = user.saving_products
         return Response(user_serializer.data)
     
     

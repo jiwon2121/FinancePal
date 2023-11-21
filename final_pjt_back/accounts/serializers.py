@@ -9,14 +9,14 @@ from django.conf import settings
 class CustomRegisterSerializer(RegisterSerializer):
     # 추가할 필드들을 정의합니다.
     nickname = serializers.CharField(
-    required=False,
-    allow_blank=True,
     max_length=255
     )
     address = serializers.CharField(
         allow_blank=True,
         max_length = 255,
     )
+    first_name = serializers.CharField(max_length=50)
+    last_name = serializers.CharField(max_length=50)
     birth_date = serializers.DateField(required=False, input_formats=settings.DATE_INPUT_FORMATS)
     gender = serializers.BooleanField()
     salary = serializers.IntegerField(required=False)
@@ -33,6 +33,8 @@ class CustomRegisterSerializer(RegisterSerializer):
         return {
         'username': self.validated_data.get('username', ''),
         'email': self.validated_data.get('email', ''),
+        'first_name': self.validated_data.get('first_name', ''),
+        'last_name': self.validated_data.get('last_name', ''),
         'password1': self.validated_data.get('password1', ''),
         'nickname': self.validated_data.get('nickname', ''),
         'address': self.validated_data.get('address', ''),
