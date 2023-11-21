@@ -1,31 +1,43 @@
 <template>
   <div>
-    <nav>
-      <RouterLink :to="{ name: 'main'}">메인</RouterLink>
-      <span> | </span>
-      <RouterLink :to="{ name: 'product'}">상품비교</RouterLink>
-      <span> | </span>
-      <RouterLink :to="{ name: 'exchange'}">환율</RouterLink>
-      <span> | </span>
-      <RouterLink :to="{ name: 'map'}">주위 은행</RouterLink>
-      <span> | </span>
-      <RouterLink :to="{ name: 'boards'}">게시판</RouterLink>
-      <span> | </span>
-      <template v-if="accStore.isLogin">
-        <RouterLink :to="{ name: 'profile', params: { username: accStore.userName }}">프로필</RouterLink>
-        <span> | </span>
-        <button @click="accStore.logOut">로그아웃</button>
-        <span> | </span>
-      </template>
-      <template v-else>
-        <!-- <RouterLink :to="{ name: 'login'}">로그인</RouterLink> -->
-        <button @click="goLogin">로그인</button>
-        <span> | </span>
-        <RouterLink :to="{ name: 'signup'}">회원가입</RouterLink>
-        <span> | </span>
-      </template>
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <RouterLink class="navbar-brand" :to="{ name: 'main'}">FinancePal</RouterLink>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="nav nav-underline navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <RouterLink class="nav-link" :to="{ name: 'product'}">상품비교</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" :to="{ name: 'exchange'}">환율</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" :to="{ name: 'map'}">주위 은행</RouterLink>
+            </li>
+            <li class="nav-item">
+              <RouterLink class="nav-link" :to="{ name: 'boards'}">게시판</RouterLink>
+            </li>
+            <template v-if="accStore.isLogin">
+              <li class="nav-item">
+                <RouterLink class="nav-link" :to="{ name: 'profile', params: { username: accStore.userName }}">프로필</RouterLink>
+              </li>
+              <button @click="accStore.logOut">로그아웃</button>
+            </template>
+            <template v-else>
+              <!-- <RouterLink :to="{ name: 'login'}">로그인</RouterLink> -->
+              <button @click="goLogin">로그인</button>
+              <li class="nav-item">
+                <RouterLink class="nav-link" :to="{ name: 'signup'}">회원가입</RouterLink>
+              </li>
+            </template>
+          </ul>
+        </div>
+      </div>
     </nav>
-    <RouterView />
+    <RouterView class="mt-5"/>
   </div>
 </template>
 
@@ -43,5 +55,13 @@ const goLogin = function () {
 </script>
 
 <style scoped>
-
+.navbar {
+  background-color: #146C94;
+}
+.navbar-brand {
+  color: #AFD3E2;
+}
+.nav-link {
+  color: #F6F1F1;
+}
 </style>
