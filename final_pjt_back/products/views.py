@@ -72,8 +72,8 @@ def save_saving_products(request):
             products_serializer.save()
     for obj in response.get('result').get('optionList'):
         product = Saving.objects.get(pk=obj.get('fin_prdt_cd'))
-        if SavingOption.objects.filter(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm')).exists():
-            instance = SavingOption.objects.get(product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm'))
+        if SavingOption.objects.filter(rsrv_type=obj.get('rsrv_type'), product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm')).exists():
+            instance = SavingOption.objects.get(rsrv_type=obj.get('rsrv_type'), product=obj.get('fin_prdt_cd'), save_trm=obj.get('save_trm'))
             options_serializer = SavingOptionSerializer(instance=instance, data=obj, partial=True)
         else:
             options_serializer = SavingOptionSerializer(data=obj)
