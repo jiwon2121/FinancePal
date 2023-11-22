@@ -38,9 +38,11 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { accountStore } from '@/stores/accountStore'
 
-const cityInput = ref('')
-const areaInput = ref('')
+const store = accountStore()
+const cityInput = ref(store.city)
+const areaInput = ref(store.area)
 const bankInput = ref('')
 
 const cityList = [

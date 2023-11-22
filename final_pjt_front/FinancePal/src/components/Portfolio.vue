@@ -23,8 +23,6 @@
       />
     </ul>
   </div>
-  <hr>
-  {{ store.profile }}
 </template>
 
 <script setup>

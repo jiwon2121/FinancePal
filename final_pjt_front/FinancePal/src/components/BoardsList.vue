@@ -14,9 +14,11 @@
       <template v-for="board in store.boards" v-else>
         <tr>
           <td class="text-center">
-            <p @click="goProfile(board.user.username)">{{ board.user.nickname }}</p>
+            <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goProfile(board.user.username)">{{ board.user.nickname }}</a>
           </td>
-          <td><a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(board.id)">{{ board.title }}</a></td>
+          <td>
+            <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(board.id)">{{ board.title }}</a>
+          </td>
           <td class="text-center">{{ board.created_at.slice(0, 10) }}</td>
         </tr>
       </template>
