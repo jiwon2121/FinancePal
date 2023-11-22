@@ -9,16 +9,20 @@
     </template>
 
     <template v-else>
-      <p>{{ comment.content }}</p>
-      <p>댓글작성자: {{ comment.user.nickname }}</p>
-
-      <template
-        v-if="store.userName===comment.user.username"
-        @click="deleteComment()"
-      >
-        <button @click="changeState">수정</button>
-        <button @click="deleteComment">삭제</button>
-      </template>
+      <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goProfile(comment.user.username)">{{ comment.user.nickname }}</a>
+      <div class="mt-3 d-flex justify-content-between">
+        <p>💬 {{ comment.content }}</p>
+  
+        <template
+          v-if="store.userName===comment.user.username"
+          @click="deleteComment()"
+        >
+        <div>
+          <button class="me-3 btn btn-success" @click="changeState">수정</button>
+          <button class="btn btn-danger" @click="deleteComment">삭제</button>
+        </div>
+        </template>
+      </div>
 
     </template>
     <hr>
@@ -28,8 +32,10 @@
 <script setup>
 import { ref } from 'vue'
 import { accountStore } from '@/stores/accountStore'
+import { useRouter } from 'vue-router'
 import axios from 'axios'
 
+const router = useRouter()
 const store = accountStore()
 const props = defineProps({
   comment: Object
@@ -77,6 +83,10 @@ const editComment = function() {
     .catch(err => {
       console.log(err)
     })
+}
+
+const goProfile = function(username) {
+  router.push({name: "profile", params: {username: username}})
 }
 
 </script>

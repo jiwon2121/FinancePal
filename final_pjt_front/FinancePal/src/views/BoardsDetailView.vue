@@ -1,8 +1,6 @@
 <template>
   <div v-if="board">
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
-    <h1>{{ board.title }}</h1>
-    <hr>
     
     <template v-if="isEdit">
       <form @submit.prevent="editArticle">
@@ -20,37 +18,56 @@
       </form>
       <button @click="changeState">취소</button>
     </template>
-
+    
     <template v-else>
-      <h3>{{ board.title }}</h3>
-      <hr>
-      <p>글쓴이 : {{ board.user.nickname }}</p>
-      <p>댓글 수 : {{ board.comment_set.length }}</p>
-      <hr>
-      <p>{{ board.content }}</p>
-      <template
-        v-if="store.userName===board.user.username"
-      >
-        <button
-          @click="changeState"
+      <div class="header d-flex justify-content-between align-items-center">
+        <h1 class="mt-3">{{ board.title }}</h1>
+        
+        <template
+          v-if="store.userName===board.user.username"
         >
-          수정
-        </button>
-        <button
-          @click="deleteArticle"
-        >
-          삭제
-        </button>
-      </template>
+        <div>
+          <button
+            class="btn btn-success me-3"
+            @click="changeState"
+          >
+            수정
+          </button>
+          <button
+            class="btn btn-danger"
+            @click="deleteArticle"
+          >
+            삭제
+          </button>
+        </div>
+        </template>
+      </div>
+      <hr>
+      <div class="d-flex justify-content-between">
+        <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goProfile(board.user.username)">{{ board.user.nickname }}</a>
+        <span>댓글 : {{ board.comment_set.length }}</span>
+      </div>
+      <hr>
+      <p class="content">{{ board.content }}</p>
+      <hr>
+      <div class="comment-box">
+        <h4>댓글 작성하기</h4>
+        <form v-if="store.isLogin" @submit.prevent="writeComment" ref="commentForm">
+          <div class="input-group comment-section">
+            <textarea class="form-control" name="comment" id="comment" cols="30" rows="3" ref="comment"></textarea>
+            <button class="btn btn-primary">작성</button>
+          </div>
+        </form>
+        <form v-if="!store.isLogin" @submit.prevent="writeComment" ref="commentForm">
+          <div class="input-group comment-section">
+            <textarea class="form-control" name="comment" id="comment" cols="30" rows="3" ref="comment" placeholder="댓글을 작성하려면 로그인하세요." disabled="true"></textarea>
+            <button class="btn btn-primary" disabled="true">작성</button>
+          </div>
+        </form>
+      </div>
+      <hr>
     </template>
-    <hr>
-    <h3>댓글</h3>
-    <form v-if="store.isLogin" @submit.prevent="writeComment" ref="commentForm">
-      <input type="text" ref="comment">
-      <button>작성</button>
-    </form>
-    <hr>
-    <template v-for="comment in board.comment_set">
+      <template v-for="comment in board.comment_set">
       <Comment 
         :comment="comment"
         @updatePage="updatePage"
@@ -146,6 +163,10 @@ const changeState = function() {
   isEdit.value = !isEdit.value
 }
 
+const goProfile = function(username) {
+  router.push({name: "profile", params: {username: username}})
+}
+
 const updatePage = function() {
   axios({
     method: 'get',
@@ -165,5 +186,10 @@ onMounted(updatePage)
 </script>
 
 <style scoped>
-
+.content {
+  height: 300px;
+}
+.comment-section {
+  width: 70%;
+}
 </style>
