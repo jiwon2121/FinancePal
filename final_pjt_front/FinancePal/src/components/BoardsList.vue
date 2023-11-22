@@ -1,16 +1,22 @@
 <template>
-  <div>
-    <h1>{{type}}</h1>
-    <template v-for="board in store.boards">
-      <div @click="goDetail(board.id)">
-        {{ board.id }}
-        {{ board.title }}
-        <br>
-        글쓴이 : {{ board.user.nickname }}
-        <hr>
-      </div>
+  <table class="table table-striped">
+    <thead>
+        <tr class="text-center">
+          <th class="col-2">글쓴이</th>
+          <th class="col-6">제목</th>
+          <th class="col-3">날짜</th>
+        </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <template v-for="board in store.boards">
+        <tr>
+          <td class="text-center">{{ board.user.nickname }}</td>
+          <td><p @click="goDetail(board.id)">{{ board.title }}</p></td>
+          <td class="text-center">{{ board.created_at.slice(0, 10) }}</td>
+        </tr>
     </template>
-  </div>
+  </tbody>
+  </table>
 </template>
 
 <script setup>
@@ -40,5 +46,7 @@ const goDetail = function(pk) {
 </script>
 
 <style scoped>
-
+.table {
+  width: 100%;
+}
 </style>

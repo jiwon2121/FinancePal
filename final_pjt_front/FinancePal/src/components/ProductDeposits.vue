@@ -1,5 +1,4 @@
 <template>
-  <div>
     <hr>
     <table class="table table-striped">
       <thead>
@@ -28,7 +27,6 @@
         </template>
       </tbody>
     </table>
-  </div>
 </template>
 
 <script setup>

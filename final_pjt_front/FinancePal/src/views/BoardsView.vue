@@ -1,10 +1,16 @@
 <template>
-  <div class="header">
-    <h1>게시판</h1>
-    <button @click="changeType('free')">자유게시판</button>
-    <button @click="changeType('qna')">Q&A</button>
-    <button @click="changeType('notice')">공지사항</button>
-    <button @click="create">글쓰기</button>
+  <div class="header mb-5">
+    <h1 class="mx-3 mb-3" v-if="type === 'free'">자유 게시판</h1>
+    <h1 class="mx-3 mb-3" v-if="type === 'qna'">Q&A</h1>
+    <h1 class="mx-3 mb-3" v-if="type === 'notice'">공지사항</h1>
+    <div class="d-flex justify-content-between">
+      <div>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='free'}" @click="changeType('free')">자유게시판</button>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='qna'}" @click="changeType('qna')">Q&A</button>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='notice'}" @click="changeType('notice')">공지사항</button>
+      </div>
+      <button type="button" class="btn btn-success" @click="create">글쓰기</button>
+    </div>
   </div>
   <BoardsList 
   :type="type"
