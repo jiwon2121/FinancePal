@@ -4,7 +4,7 @@
     <button @click="changeType('free')">자유게시판</button>
     <button @click="changeType('qna')">Q&A</button>
     <button @click="changeType('notice')">공지사항</button>
-    <button @click="create">글쓰기</button>
+    <button @click="create" v-if="store.isLogin">글쓰기</button>
   </div>
   <BoardsList 
   :type="type"
@@ -14,8 +14,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { accountStore } from '@/stores/accountStore'
 import BoardsList from '@/components/BoardsList.vue'
 
+const store =accountStore()
 const type = ref('free')
 const router = useRouter()
 

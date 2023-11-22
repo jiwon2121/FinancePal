@@ -54,13 +54,16 @@ class CustomRegisterSerializer(RegisterSerializer):
         return user
 
 
-class ProfileSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'nickname', 'address', 'birth_date', 'gender', 'salary', 'balance', 'deposit_products', 'saving_products')
-
-
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'nickname', 'birth_date', 'gender', 'salary', 'balance')
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    from articles.serializers import ArticleSerializer, CommentSerializer
+    article_set = ArticleSerializer(many=True, read_only=True)
+    comment_set = CommentSerializer(many=True, read_only=True)
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'nickname', 'address', 'birth_date', 'gender', 'salary', 'balance', 'deposit_products', 'saving_products', 'article_set', 'comment_set')
