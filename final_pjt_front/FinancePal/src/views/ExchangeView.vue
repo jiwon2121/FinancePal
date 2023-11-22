@@ -4,7 +4,7 @@
     <div class="d-flex flex-column mt-3">
       <div class="input-group mb-3">
         <span class="input-group-text">대한민국 원화</span>
-        <input type="number" class="form-control" v-model="korInput" @input="calOther">
+        <input type="number" class="form-control text-end" v-model="korInput" @input="calOther">
       </div>
       <div class="input-group flex-nowrap">
         <select class="input-group-text" name="other" id="other" v-model="country" @change="calOther">
@@ -12,7 +12,7 @@
             <option :value="exchange.cur_nm">{{ exchange.cur_nm }}</option>
           </template>
         </select>
-        <input class="form-control" type="number" v-model="otherInput" @input="calKor">
+        <input class="form-control text-end" type="number" v-model="otherInput" @input="calKor">
       </div>
     </div>
     </div>
@@ -30,8 +30,8 @@ const exchangeRate = computed(() => {
   const ex = store.exchangeList[idx].deal_bas_r.replace(',', '')
   return parseFloat(ex)
 })
-const korInput = ref(0)
-const otherInput = ref(0)
+const korInput = ref(null)
+const otherInput = ref(null)
 
 const calOther = function() {
   const temp = korInput.value / exchangeRate.value
@@ -62,5 +62,10 @@ onMounted(() => {
 <style scoped>
 .input-group-text {
   width: 150px;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 </style>
