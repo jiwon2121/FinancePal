@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>ProductDetailView</h1>
+    <h1>상품 상세 보기</h1>
     <template v-if="product">
       <p>금융기관 : {{ product.kor_co_nm }}</p>
       <p>상품명 : {{ product.fin_prdt_nm }}</p>

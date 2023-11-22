@@ -1,19 +1,21 @@
 <template>
   <div class="d-flex flex-column align-items-center justify-content-center">
-    <h1 class="mb-3">실시간 환율 정보</h1>
-    <div class="input-group mb-3">
-      <span class="input-group-text">대한민국 원화</span>
-      <input type="number" class="form-control" v-model="korInput" @input="calOther">
+    <h1 class="my-3 mb-3">💵 실시간 환율 정보</h1>
+    <div class="d-flex flex-column mt-3">
+      <div class="input-group mb-3">
+        <span class="input-group-text">대한민국 원화</span>
+        <input type="number" class="form-control" v-model="korInput" @input="calOther">
+      </div>
+      <div class="input-group flex-nowrap">
+        <select class="input-group-text" name="other" id="other" v-model="country" @change="calOther">
+          <template v-for="exchange in store.exchangeList">
+            <option :value="exchange.cur_nm">{{ exchange.cur_nm }}</option>
+          </template>
+        </select>
+        <input class="form-control" type="number" v-model="otherInput" @input="calKor">
+      </div>
     </div>
-    <div class="input-group flex-nowrap">
-      <select class="input-group-text" name="other" id="other" v-model="country" @change="calOther">
-        <template v-for="exchange in store.exchangeList">
-          <option :value="exchange.cur_nm">{{ exchange.cur_nm }}</option>
-        </template>
-      </select>
-      <input class="form-control" type="number" v-model="otherInput" @input="calKor">
     </div>
-  </div>
 </template>
 
 <script setup>

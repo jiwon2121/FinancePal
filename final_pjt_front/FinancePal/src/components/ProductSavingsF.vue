@@ -14,17 +14,21 @@
       </thead>
       <tbody class="table-group-divider">
         <template v-for="saving in store.savings">
-          <tr>
+          <template
+          v-if="store.findSavingRate(saving.savingoption_set, '6', 'F') !== '-' ||
+          store.findSavingRate(saving.savingoption_set, '12', 'F') !== '-' ||
+          store.findSavingRate(saving.savingoption_set, '24', 'F') !== '-' ||
+          store.findSavingRate(saving.savingoption_set, '36', 'F') !== '-'
+          ">
+            <tr>
             <td>{{ saving.kor_co_nm }}</td>
-            <td>{{ saving.fin_prdt_nm }}</td>
-            <td>{{ store.findSavingRate(saving.savingoption_set, '6', 'F')}}</td>
-            <td>{{ store.findSavingRate(saving.savingoption_set, '12', 'F') }}</td>
-            <td>{{ store.findSavingRate(saving.savingoption_set, '24', 'F') }}</td>
-            <td>{{ store.findSavingRate(saving.savingoption_set, '36', 'F') }}</td>
-            <td>
-              <button type="button" class="btn btn-outline-dark" @click="goDetail(saving)">상세 보기</button>
-            </td>
-          </tr>
+            <td><a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(saving)">{{ saving.fin_prdt_nm }}</a></td>
+              <td>{{ store.findSavingRate(saving.savingoption_set, '6', 'F')}}</td>
+              <td>{{ store.findSavingRate(saving.savingoption_set, '12', 'F') }}</td>
+              <td>{{ store.findSavingRate(saving.savingoption_set, '24', 'F') }}</td>
+              <td>{{ store.findSavingRate(saving.savingoption_set, '36', 'F') }}</td>
+            </tr>
+          </template>
         </template>
       </tbody>
     </table>

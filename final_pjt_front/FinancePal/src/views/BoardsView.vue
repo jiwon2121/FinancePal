@@ -1,8 +1,8 @@
 <template>
-  <div class="header mb-5">
-    <h1 class="mx-3 mb-3" v-if="type === 'free'">자유 게시판</h1>
-    <h1 class="mx-3 mb-3" v-if="type === 'qna'">Q&A</h1>
-    <h1 class="mx-3 mb-3" v-if="type === 'notice'">공지사항</h1>
+  <div class="header mb-5 text-center">
+    <h1 class="mx-3 mb-3" v-if="type === 'free'">✒ 자유 게시판</h1>
+    <h1 class="mx-3 mb-3" v-if="type === 'qna'">❔ Q&A</h1>
+    <h1 class="mx-3 mb-3" v-if="type === 'notice'">📢 공지사항</h1>
     <div class="d-flex justify-content-between">
       <div>
         <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='free'}" @click="changeType('free')">자유게시판</button>

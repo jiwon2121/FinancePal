@@ -1,6 +1,7 @@
 <template>
   <div v-if="board">
-    <h1>게시판 세부</h1>
+    <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
+    <h1>{{ board.title }}</h1>
     <hr>
     
     <template v-if="isEdit">

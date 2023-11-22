@@ -1,22 +1,37 @@
 <template>
-  <div>
-    <h1>MapView</h1>
-    <select name="city" id="city" v-model="cityInput">
-      <option value="" disabled>시/도 선택</option>
-      <option v-for="city in cityList" :value="city">{{ city }}</option>
-    </select>
-    <select name="area" id="area" v-model="areaInput">
-      <option value="" disabled>지역 선택</option>
-      <option value="all">전체</option>
-      <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
-    </select>
-    <select name="bank" id="bank" v-model="bankInput">
-      <option value="" disabled>은행 선택</option>
-      <option value="은행">전체</option>
-      <option v-for="bank in bankList" :value="bank">{{ bank }}</option>
-    </select>
-    <button @click="search">검색</button>
-    <div ref="container" style="width:500px;height:400px;"></div>
+  <div class="text-center d-flex flex-column justify-content-center align-items-center">
+    <h1 class="my-3 mb-5">🗺 내 주변 은행 찾기</h1>
+    <div class="d-flex justify-content-between">
+      <div class="d-flex">
+        <div class="me-3 input-group board-type-select">
+          <span class="input-group-text" id="city">도시</span>
+          <select class="form-select" name="city" id="city" v-model="cityInput">
+            <option value="" disabled>시/도 선택</option>
+            <option v-for="city in cityList" :value="city">{{ city }}</option>
+          </select>
+        </div>
+    
+        <div class="me-3 input-group board-type-select">
+          <span class="input-group-text" id="area">지역</span>
+          <select class="form-select" name="area" id="area" v-model="areaInput">
+            <option value="" disabled>지역 선택</option>
+            <option value="all">전체</option>
+            <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
+          </select>
+        </div>
+    
+        <div class="me-3 input-group board-type-select">
+          <span class="input-group-text" id="bank">은행</span>
+          <select class="form-select" name="bank" id="bank" v-model="bankInput">
+            <option value="" disabled>은행 선택</option>
+            <option value="은행">전체</option>
+            <option v-for="bank in bankList" :value="bank">{{ bank }}</option>
+          </select>
+        </div>
+      </div>
+      <button class="search-btn btn btn-success" @click="search">검색</button>
+    </div>
+    <div class="mt-5" ref="container" style="width:500px;height:400px;"></div>
   </div>
 
 </template>
@@ -168,14 +183,14 @@ function resetMarker() {
 const search = function() {
   resetMarker()
   const ps = new kakao.maps.services.Places()
-  if (!city.value) {
+  if (!cityInput.value) {
     window.alert('시/도를 선택하세요.')
-  } else if (!area.value) {
+  } else if (!areaInput.value) {
     window.alert('지역을 선택하세요.')
-  } else if (!bank.value) {
+  } else if (!bankInput.value) {
     window.alert('은행을 선택하세요')
   } else {
-    let keyword = `${city.value} ${area.value} ${bank.value}`
+    let keyword = `${cityInput.value} ${areaInput.value} ${bankInput.value}`
     keyword = keyword.replace(' all', '')
     ps.keywordSearch(keyword, placesSearchCB)
   }
@@ -194,5 +209,7 @@ onMounted(() => {
 </script>
 
 <style scoped>
-
+.search-btn {
+  width: 75px;
+}
 </style>

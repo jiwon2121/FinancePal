@@ -15,14 +15,11 @@
         <template v-for="deposit in store.deposits">
           <tr>
             <td>{{ deposit.kor_co_nm }}</td>
-            <td>{{ deposit.fin_prdt_nm }}</td>
+            <td><a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(deposit)">{{ deposit.fin_prdt_nm }}</a></td>
             <td>{{ store.findSavingRate(deposit.depositoption_set, '6') }}</td>
             <td>{{ store.findSavingRate(deposit.depositoption_set, '12') }}</td>
             <td>{{ store.findSavingRate(deposit.depositoption_set, '24') }}</td>
             <td>{{ store.findSavingRate(deposit.depositoption_set, '36') }}</td>
-            <td>
-              <button type="button" class="btn btn-outline-dark" @click="goDetail(deposit)">상세 보기</button>
-            </td>
           </tr>
         </template>
       </tbody>
