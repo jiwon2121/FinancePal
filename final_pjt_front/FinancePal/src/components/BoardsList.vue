@@ -1,21 +1,22 @@
 <template>
   <table class="table table-striped">
     <thead>
-        <tr class="text-center">
-          <th class="col-2">글쓴이</th>
-          <th class="col-6">제목</th>
-          <th class="col-3">날짜</th>
-        </tr>
+      <tr class="text-center">
+        <th class="col-2">글쓴이</th>
+        <th class="col-6">제목</th>
+        <th class="col-3">날짜</th>
+      </tr>
     </thead>
     <tbody class="table-group-divider">
-      <template v-for="board in store.boards">
+      <div class="spinner-border" role="status" v-if="store.isLoad">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+      <template v-for="board in store.boards" v-else>
         <tr>
           <td class="text-center">
             <p @click="goProfile(board.user.username)">{{ board.user.nickname }}</p>
           </td>
-          <td>
-            <p @click="goDetail(board.id)">{{ board.title }}</p>
-          </td>
+          <td><a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(board.id)">{{ board.title }}</a></td>
           <td class="text-center">{{ board.created_at.slice(0, 10) }}</td>
         </tr>
       </template>
@@ -55,5 +56,10 @@ const goProfile = function(username) {
 <style scoped>
 .table {
   width: 100%;
+}
+.spinner-border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
 }
 </style>

@@ -13,7 +13,7 @@ export const productStore = defineStore('product', () => {
     if (obj === undefined) {
       return '-'
     } else {
-      return obj.intr_rate
+      return obj.intr_rate2
     }
   }
 
@@ -22,7 +22,7 @@ export const productStore = defineStore('product', () => {
     if (obj === undefined) {
       return '-'
     } else {
-      return obj.intr_rate
+      return obj.intr_rate2
     }
   }
 

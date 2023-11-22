@@ -80,14 +80,14 @@ def recommend_by_profile(request, username):
         df_deposit = pd.merge(users, deposit_products, left_on='id', right_on='user_id', how='inner')
         df_deposit['age'] = df_deposit['birth_date'].apply(calc_age)
 
-        user_age = df_deposit[df_deposit['username']==user.username]['age'].values[0]
-        user_salary = df_deposit[df_deposit['username'] == user.username]['salary'].values[0]
-        user_age_balance = df_deposit[df_deposit['username'] == user.username]['balance'].values[0]
+        user_age = calc_age(str(user.birth_date))
+        user_salary = user.salary
+        user_balance = user.balance
         user_deposit_products = df_deposit[df_deposit['username'] == user.username]['deposit_id'].values
 
         df_deposit['age_diff'] = abs(df_deposit['age']-user_age)
         df_deposit['salary_diff'] = abs(df_deposit['salary']-user_salary)
-        df_deposit['balance_diff'] = abs(df_deposit['balance']-user_age_balance)
+        df_deposit['balance_diff'] = abs(df_deposit['balance']-user_balance)
 
         df_deposit = df_deposit[~df_deposit['deposit_id'].isin(user_deposit_products)]
         df_deposit = df_deposit.groupby('deposit_id')[['age_diff', 'balance_diff', 'salary_diff']].mean()
@@ -100,7 +100,7 @@ def recommend_by_profile(request, username):
 
         df_saving['age_diff'] = abs(df_saving['age']-user_age)
         df_saving['salary_diff'] = abs(df_saving['salary']-user_salary)
-        df_saving['balance_diff'] = abs(df_saving['balance']-user_age_balance)
+        df_saving['balance_diff'] = abs(df_saving['balance']-user_balance)
 
         df_saving = df_saving[~df_saving['saving_id'].isin(user_saving_products)]
         df_saving = df_saving.groupby('saving_id')[['age_diff', 'balance_diff', 'salary_diff']].mean()
@@ -113,7 +113,6 @@ def recommend_by_profile(request, username):
             'savings': df_saving.head(5).index,
         }
         return Response({'recommendations': json_response})
-    
     else:
         return Response({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
