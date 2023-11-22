@@ -9,7 +9,7 @@
         <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='qna'}" @click="changeType('qna')">Q&A</button>
         <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:type=='notice'}" @click="changeType('notice')">공지사항</button>
       </div>
-      <button type="button" class="btn btn-success" @click="create">글쓰기</button>
+      <button type="button" class="btn btn-success" @click="create" v-if="store.isLogin">글쓰기</button>
     </div>
   </div>
   <BoardsList 
@@ -20,8 +20,10 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { accountStore } from '@/stores/accountStore'
 import BoardsList from '@/components/BoardsList.vue'
 
+const store =accountStore()
 const type = ref('free')
 const router = useRouter()
 
