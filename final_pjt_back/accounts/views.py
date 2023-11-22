@@ -75,10 +75,11 @@ def recommend_by_profile(request, username):
     df_deposit = pd.merge(users, deposit_products, left_on='id', right_on='user_id', how='inner')
     df_deposit['age'] = df_deposit['birth_date'].apply(calc_age)
 
-    user_age = df_deposit[df_deposit['username']==user.username]['age'].values[0]
-    user_salary = df_deposit[df_deposit['username'] == user.username]['salary'].values[0]
-    user_age_balance = df_deposit[df_deposit['username'] == user.username]['balance'].values[0]
+    user_age = calc_age(str(user.birth_date))
+    user_salary = user.salary
+    user_age_balance = user.balance
     user_deposit_products = df_deposit[df_deposit['username'] == user.username]['deposit_id'].values
+    print(">>>>>>>>>", user_deposit_products)
 
     df_deposit['age_diff'] = abs(df_deposit['age']-user_age)
     df_deposit['salary_diff'] = abs(df_deposit['salary']-user_salary)
