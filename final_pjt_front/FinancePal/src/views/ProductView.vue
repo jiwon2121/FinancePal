@@ -1,6 +1,8 @@
 <template>
   <div class="d-flex flex-column justify-content-center align-items-center">
-    <h1 class="mb-3">금융 상품 비교</h1>
+    <h1 v-if="type===1" class="mb-3">정기예금 상품 비교</h1>
+    <h1 v-if="type===2" class="mb-3">정기적금 상품 비교</h1>
+    <h1 v-if="type===3" class="mb-3">자유적금 상품 비교</h1>
     <div>
       <button type="button" class="mx-3 btn btn-outline-dark" :class="{active:type==1}" @click="changeComponent(1)">정기예금</button>
       <button type="button" class="mx-3 btn btn-outline-dark" :class="{active:type==2}" @click="changeComponent(2)">정기적금</button>

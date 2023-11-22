@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main-body">
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" :to="{ name: 'main'}">FinancePal</RouterLink>
@@ -56,6 +56,9 @@ const goLogin = function () {
 </script>
 
 <style scoped>
+.main-body {
+  width: 100%;
+}
 .navbar {
   background-color: #146C94;
 }
