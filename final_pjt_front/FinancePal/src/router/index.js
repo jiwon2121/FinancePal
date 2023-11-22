@@ -11,6 +11,8 @@ import WelcomeView from '@/views/WelcomeView.vue'
 import BoardsView from '@/views/BoardsView.vue'
 import BoardsDetailView from '@/views/BoardsDetailView.vue'
 import BoardsCreateView from '@/views/BoardsCreateView.vue'
+import { accountStore } from '@/stores/accountStore'
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,17 +25,36 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
-      component: LoginView
+      component: LoginView,
+      beforeEnter: ((to, from, next) => {
+        const accStore = accountStore()
+        if (accStore.isLogin) {
+          window.alert('로그인 되어있습니다.')
+          next(from)
+        } else {
+          next()
+        }
+      })
     },
     {
       path: '/signup',
       name: 'signup',
-      component: SignupView
+      component: SignupView,
+      beforeEnter: ((to, from, next) => {
+        const accStore = accountStore()
+        console.log(accStore.isLogin)
+        if (accStore.isLogin) {
+          window.alert('로그인 되어있습니다.')
+          next(from)
+        } else {
+          next()
+        }
+      })
     },
     {
       path: '/profile/:username',
       name: 'profile',
-      component: ProfileView
+      component: ProfileView,
     },
     {
       path: '/product',
@@ -73,7 +94,16 @@ const router = createRouter({
     {
       path: '/boards/create',
       name: 'boardsCreate',
-      component: BoardsCreateView
+      component: BoardsCreateView,
+      beforeEnter: ((to, from, next) => {
+        const accStore = accountStore()
+        if (!accStore.isLogin) {
+          window.alert('로그인이 필요한 서비스입니다.')
+          next(from)
+        } else {
+          next()
+        }
+      })
     },
   ]
 })

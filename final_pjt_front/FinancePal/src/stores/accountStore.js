@@ -22,13 +22,12 @@ export const accountStore = defineStore('account', () => {
 
   const logIn = function(payload) {
     const {username, password} = payload
-    
     axios({
       method: 'post',
       url: `${API_URL}/accounts/login/`,
       data: {
         username, password
-      }
+      },
     })
       .then(res => {
         const back = history.state.back
@@ -42,7 +41,7 @@ export const accountStore = defineStore('account', () => {
 
     axios({
       method: 'post',
-      url: `${API_URL}/profile/permission/${username}/`
+      url: `${API_URL}/profile/permission/${username}/`,
     })
       .then(res => {
         isStaff.value = res.data.is_staff

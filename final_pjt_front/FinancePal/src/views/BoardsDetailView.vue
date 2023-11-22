@@ -87,7 +87,10 @@ const writeComment = function() {
     url: `http://127.0.0.1:8000/articles/${route.params.pk}/`,
     data: {
       username: store.userName,
-      content: comment.value.value
+      content: comment.value.value,
+    },
+    headers: {
+      Authorization: `Token ${store.token}`
     }
   })
     .then(res => {
@@ -103,6 +106,9 @@ const deleteArticle = function() {
   axios({
     method: 'delete',
     url: `http://127.0.0.1:8000/articles/${route.params.pk}/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
   })
     .then(() => {
       router.push({name: 'boards'})
@@ -120,6 +126,9 @@ const editArticle = function() {
       board_type: boardType.value,
       title: titleInput.value.value,
       content: contentInput.value.value
+    },
+    headers: {
+      Authorization: `Token ${store.token}`
     }
   })
     .then(() => {

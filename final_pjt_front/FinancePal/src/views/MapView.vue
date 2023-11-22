@@ -117,7 +117,7 @@ const initMap = () => {
 }
 
 const loadScript = function() {
-  const key = 'bf462e39c2afdad673f09507548cb576'
+  const key = import.meta.env.VITE_KAKAO_API_KEY
   const script = document.createElement('script')
   
   script.src = `//dapi.kakao.com/v2/maps/sdk.js?autoload=false&appkey=${key}&libraries=services`
