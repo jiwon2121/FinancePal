@@ -10,12 +10,16 @@
     <tbody class="table-group-divider">
       <template v-for="board in store.boards">
         <tr>
-          <td class="text-center">{{ board.user.nickname }}</td>
-          <td><p @click="goDetail(board.id)">{{ board.title }}</p></td>
+          <td class="text-center">
+            <p @click="goProfile(board.user.username)">{{ board.user.nickname }}</p>
+          </td>
+          <td>
+            <p @click="goDetail(board.id)">{{ board.title }}</p>
+          </td>
           <td class="text-center">{{ board.created_at.slice(0, 10) }}</td>
         </tr>
-    </template>
-  </tbody>
+      </template>
+    </tbody>
   </table>
 </template>
 
@@ -40,7 +44,10 @@ const propsWatch = watch(props, (newValue) => {
 
 const goDetail = function(pk) {
   router.push({name: "boardsDetail", params: {pk: pk}})
-  console.log(1111111)
+}
+
+const goProfile = function(username) {
+  router.push({name: "profile", params: {username: username}})
 }
 
 </script>

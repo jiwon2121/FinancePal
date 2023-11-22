@@ -47,6 +47,9 @@ const deleteComment = function() {
   axios({
     method: 'delete',
     url: `http://127.0.0.1:8000/articles/comment/${props.comment.id}/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
   })
     .then(res => {
       emit('updatePage')
@@ -62,6 +65,9 @@ const editComment = function() {
     url: `http://127.0.0.1:8000/articles/comment/${props.comment.id}/`,
     data: {
       content: commentInput.value.value
+    },
+    headers: {
+      Authorization: `Token ${store.token}`
     }
   })
     .then(res => {
