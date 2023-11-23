@@ -29,6 +29,8 @@ import { ref, computed } from 'vue'
 import { exchangeStore } from '@/stores/exchangeStore'
 import { onMounted } from 'vue'
 
+const korInput = ref(null)
+const otherInput = ref(null)
 const store = exchangeStore()
 const country = ref('미국 달러')
 const exchangeRate = computed(() => {
@@ -36,7 +38,6 @@ const exchangeRate = computed(() => {
   const ex = store.exchangeList[idx].deal_bas_r.replace(',', '')
   return parseFloat(ex)
 })
-const korInput = ref(null)
 const korInputComputed = computed(() => {
   return korInput.value ? korInput.value.toLocaleString() + ' 원' : '0 원'
 })
@@ -47,7 +48,6 @@ const otherInputComputed = computed(() => {
     return otherInput.value ? otherInput.value.toLocaleString() + " " + country.value : '0 ' + country.value
   }
 })
-const otherInput = ref(null)
 
 const calOther = function() {
   const temp = korInput.value / exchangeRate.value
