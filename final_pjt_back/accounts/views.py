@@ -2,8 +2,9 @@ from django.shortcuts import render
 from .models import User
 from .serializers import ProfileSerializer
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, authentication_classes
 from rest_framework import status
+from rest_framework.authentication import TokenAuthentication
 from django.conf import settings
 from products.models import Deposit, Saving
 from products.serializers import DepositSerializer, SavingSerializer, DepositOptionSerializer, SavingOptionSerializer
@@ -54,7 +55,7 @@ def dummy_user_deposit_saving(request):
 
 @api_view(['GET'])
 def recommend_by_profile(request, username):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         def calc_age(birthdate):
             today = datetime.datetime.today()
             birthdate = datetime.datetime.strptime(birthdate, '%Y-%m-%d')
@@ -85,7 +86,7 @@ def recommend_by_profile(request, username):
         user_balance = user.balance
         user_deposit_products = df_deposit[df_deposit['username'] == user.username]['deposit_id'].values
 
-        df_deposit['age_diff'] = abs(df_deposit['age']-user_age)
+        df_deposit['age_diff'] = abs(df_deposit['age']-user_age) 
         df_deposit['salary_diff'] = abs(df_deposit['salary']-user_salary)
         df_deposit['balance_diff'] = abs(df_deposit['balance']-user_balance)
 
@@ -117,4 +118,30 @@ def recommend_by_profile(request, username):
         return Response({'error': 'unauthorized'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+def join(request, prdt_type, prdt_cd):
+    user = request.user
+    if prdt_type == 'deposits':
+        prdt = Deposit.objects.get(pk=prdt_cd)
+        user.deposit_products.add(prdt)
+    elif prdt_type == 'savings':
+        prdt = Saving.objects.get(pk=prdt_cd)
+        user.saving_products.add(prdt)
+
+    return Response({'msg': 'okay'},status=status.HTTP_201_CREATED)
     
+
+@api_view(['POST'])
+@authentication_classes([TokenAuthentication])
+def cancel(request, prdt_type, prdt_cd):
+    user = request.user
+    if prdt_type == 'deposits':
+        prdt = Deposit.objects.get(pk=prdt_cd)
+        user.deposit_products.remove(prdt)
+    elif prdt_type == 'savings':
+        prdt = Saving.objects.get(pk=prdt_cd)
+        user.saving_products.remove(prdt)
+
+    return Response({'msg': 'okay'},status=status.HTTP_201_CREATED)
+

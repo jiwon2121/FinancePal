@@ -14,6 +14,8 @@ export const accountStore = defineStore('account', () => {
   const address = ref(null)
   const city = ref('')
   const area = ref('')
+  const deposits = ref(null)
+  const savings = ref(null)
 
   const addressWatch = watch(address, (newValue) => {
     const splited = newValue.split(' ')
@@ -57,25 +59,34 @@ export const accountStore = defineStore('account', () => {
             isSuper.value = res.data.is_super
           })
       })
+      .then(() => {
+        updateProfile()
+      })
       .catch(err => {
         console.log(err)
       })
-      
-
-    axios({
-      method: 'get',
-      url: `${API_URL}/profile/${username}`
-    })
-      .then(res => {
-        console.log(res.data)
-        address.value = res.data.address
+    }
+    
+    const logOut = function() {
+      localStorage.removeItem('account')
+      location.reload()
+    }
+    
+    const updateProfile = function() {
+      axios({
+        method: 'get',
+        url: `${API_URL}/profile/${userName.value}`
       })
+        .then(res => {
+          console.log(res.data)
+          address.value = res.data.address
+          deposits.value = res.data.deposit_products
+          savings.value = res.data.saving_products
+        })
+        .catch(err => {
+
+        })
   }
 
-  const logOut = function() {
-    localStorage.removeItem('account')
-    location.reload()
-  }
-
-  return { userName, token, isStaff, isSuper, isLogin, city, area, logIn, logOut }
+  return { userName, token, isStaff, isSuper, isLogin, city, area, deposits, savings, logIn, logOut, updateProfile }
 }, { persist: true })

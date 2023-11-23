@@ -7,4 +7,6 @@ urlpatterns = [
     path('save/dummy_user_deposit_saving/', views.dummy_user_deposit_saving),
     path('recommend_by_profile/<str:username>/', views.recommend_by_profile),
     path('permission/<str:username>/', views.permission),
+    path('join/<str:prdt_type>/<str:prdt_cd>/', views.join),
+    path('cancel/<str:prdt_type>/<str:prdt_cd>/', views.cancel),
 ]
