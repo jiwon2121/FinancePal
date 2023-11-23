@@ -15,7 +15,7 @@
           <span class="input-group-text" id="area">지역</span>
           <select class="form-select" name="area" id="area" v-model="areaInput">
             <option value="" disabled>지역 선택</option>
-            <option value="all">전체</option>
+            <option value="all" v-if="cityInput">전체</option>
             <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
           </select>
         </div>

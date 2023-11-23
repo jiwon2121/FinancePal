@@ -7,7 +7,10 @@
           <h1 class="product-name">{{ product.fin_prdt_nm }}</h1>
           <span>{{ product.kor_co_nm }}</span>
         </div>
-        <button class="btn btn-primary">가입하기</button>
+        <template v-if="store.isLogin">
+          <button class='btn' v-if="isJoin" @click="cancel">해지하기</button>
+          <button class='btn' v-else @click="join">가입하기</button>
+        </template>
       </div>
     </div>
     <template v-if="product">
@@ -56,10 +59,15 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
+import { accountStore } from '@/stores/accountStore'
 
+const store = accountStore()
 const route = useRoute()
 const router = useRouter()
 const product = ref(null)
+const isJoin = computed(() => {
+  return store[route.params.type].includes(route.params.pk)
+})
 
 axios({
   method: 'get',
@@ -80,6 +88,35 @@ const convert = function(type) {
   } else {
     return '일부제한'
   }
+}
+
+const join = function() {
+  axios({
+    method: 'post',
+    url: `http://127.0.0.1:8000/profile/join/${route.params.type}/${route.params.pk}/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
+  })
+    .then(res => {
+      store.updateProfile()
+    })
+}
+
+const cancel = function() {
+  axios({
+    method: 'post',
+    url: `http://127.0.0.1:8000/profile/cancel/${route.params.type}/${route.params.pk}/`,
+    headers: {
+      Authorization: `Token ${store.token}`
+    }
+  })
+    .then(res => {
+      store.updateProfile()
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 </script>
