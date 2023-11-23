@@ -44,7 +44,6 @@ class CustomRegisterSerializer(RegisterSerializer):
         'gender': self.validated_data.get('gender', ''),
         'balance': self.validated_data.get('balance', ''),
         'salary': self.validated_data.get('salary', ''),
-        # 'financial_products': self.validated_data.get('financial_products', ''),
         }
 
     def save(self, request):

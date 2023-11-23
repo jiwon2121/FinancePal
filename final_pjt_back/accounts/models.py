@@ -13,8 +13,6 @@ class User(AbstractUser):
     balance = models.IntegerField()
     deposit_products = models.ManyToManyField(to=Deposit, blank=True)
     saving_products = models.ManyToManyField(to=Saving, blank=True)
-    # profile_img = models.ImageField(blank=True)
-    # follower = models.ManyToManyField()
 
 
 class CustomAccountAdapter(DefaultAccountAdapter):
@@ -36,7 +34,6 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         gender = data.get("gender")
         salary = data.get("salary")
         balance = data.get("balance")
-        # financial_product = data.get("financial_products")
         user_email(user, email)
         user_username(user, username)
         if first_name:
@@ -55,12 +52,6 @@ class CustomAccountAdapter(DefaultAccountAdapter):
             user.salary = salary
         if balance:
             user.balance = balance
-        # if financial_product:
-        #     financial_products = user.financial_products.split(',')
-        #     financial_products.append(financial_product)
-        # if len(financial_products) > 1:
-        #     financial_products = ','.join(financial_products)
-        # user_field(user, "financial_products", financial_products)
         if "password1" in data:
             user.set_password(data["password1"])
         else:
