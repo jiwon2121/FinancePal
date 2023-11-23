@@ -2,10 +2,10 @@
 <div class="main-text"></div>
 <header class="masthead d-flex justify-content-center">
   <div class="mastbody container d-flex align-items-center flex-column">
-    <h1 class="masthead-heading mb-5">
+    <h1 class="masthead-heading mb-5 fw-bold">
       FinancePal
     </h1>
-    <button class="masthead-btn btn btn-lg btn-light" @click="router.push({ path: 'product' })">시작하기</button>
+    <button class="masthead-btn btn btn-lg fw-bold btn-light" @click="router.push({ path: 'product' })">시작하기</button>
   </div>
 </header>
 </template>

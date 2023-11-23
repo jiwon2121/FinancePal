@@ -21,22 +21,23 @@ export const profileStore = defineStore('profile', () => {
         console.log(err)
       })
     
-    if (username === store.userName)
-    axios({
-      method: 'get',
-      url: `http://127.0.0.1:8000/profile/recommend_by_profile/${username}/`,
-      headers: {
-        Authorization: `Token ${store.token}`
-      }
-    })
-      .then(res => {
-        recommend.value = res.data
-        console.log(recommend.value)
+    if (username === store.userName){
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/profile/recommend_by_profile/${username}/`,
+        headers: {
+          Authorization: `Token ${store.token}`
+        }
       })
-      .catch(err => {
-        console.log(err)
-      })
-  }
+        .then(res => {
+          recommend.value = res.data
+          console.log(recommend.value)
+        })
+        .catch(err => {
+          console.log(err)
+        })
+    }
+    }
 
   return { profile, recommend, getProfile }
 })

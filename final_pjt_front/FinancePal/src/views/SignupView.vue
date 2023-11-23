@@ -3,7 +3,7 @@
     <div class="form-group">
       <form @submit.prevent="signUp">
         <div class="header d-flex justify-content-between">
-          <h3 class="mt-3">회원가입</h3>
+          <h3 class="mt-3">🔑 회원가입</h3>
           <button class="btn btn-success">제출</button>
         </div>
         <hr>

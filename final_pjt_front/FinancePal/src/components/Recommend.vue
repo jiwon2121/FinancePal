@@ -1,21 +1,41 @@
 <template>
-  <div>
-    <p>----예금----</p>
-    <ul>
-      <PortfolioProduct
-        v-for="product in store.recommend.recommendations.deposits"
-        :product="product"
-        type="deposits"
-      />
-    </ul>
-    <p>----적금-----</p>
-    <ul>
-      <PortfolioProduct
-        v-for="product in store.recommend.recommendations.savings"
-        :product="product"
-        type="savings"
-      />
-    </ul>
+  <div v-if="store.recommend" class="mt-4 mt-3 mb-5">
+    <h1 class="text-center">👍 {{ store.profile.nickname }}님을 위한 금융 상품 추천</h1>
+    <hr>
+    <div class="row mt-5">
+      <div class="col-6">
+        <table class="table table-striped">
+          <thead>
+            <tr class="text-center">
+              <th class="col">예금 상품</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <PortfolioProduct
+              v-for="product in store.recommend.recommendations.deposits"
+              :product="product"
+              type="deposits"
+            />
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <table class="table table-striped">
+          <thead>
+            <tr class="text-center">
+              <th class="col">적금 상품</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <PortfolioProduct
+              v-for="product in store.recommend.recommendations.savings"
+              :product="product"
+              type="savings"
+            />
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 

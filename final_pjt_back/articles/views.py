@@ -10,7 +10,7 @@ from rest_framework.decorators import api_view
 @api_view(['GET', 'POST'])
 def article_list(request, board_type):
     if request.method == 'GET':
-        articles = get_list_or_404(Article.objects.order_by('-pk'), board_type=board_type)
+        articles = get_list_or_404(Article.objects.order_by('-created_at'), board_type=board_type)
         serializer = ArticleSerializer(articles, many=True)
         return Response(serializer.data)
     elif request.method == 'POST':
