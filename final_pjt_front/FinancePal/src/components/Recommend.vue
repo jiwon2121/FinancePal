@@ -24,7 +24,6 @@ import { profileStore } from '@/stores/profileStore'
 import PortfolioProduct from '@/components/PortfolioProduct.vue'
 
 const store = profileStore()
-console.log(store)
 </script>
 
 <style scoped>

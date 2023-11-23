@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="product">
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
     <div class="border rounded mt-3 mb-5">
       <div class="p-4 header d-flex justify-content-around align-items-center">
@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import { accountStore } from '@/stores/accountStore'
@@ -66,8 +66,16 @@ const route = useRoute()
 const router = useRouter()
 const product = ref(null)
 const isJoin = computed(() => {
-  return store[route.params.type].includes(route.params.pk)
+  let flag = false
+  store[route.params.type].forEach((value) => {
+    if (value.fin_prdt_cd === route.params.pk) {
+      flag = true
+    }
+  })
+  return flag
 })
+
+console.log(store.savings)
 
 axios({
   method: 'get',
