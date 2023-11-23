@@ -6,7 +6,7 @@
         <span class="input-group-text d-flex justify-content-center">대한민국 원화</span>
         <div>
           <input type="number" class="form-control text-end" v-model="korInput" @input="calOther" placeholder="금액을 입력하세요.">
-          <span class="form-control text-end text-secondary overflow-hidden">{{ korInputComputed }}</span>
+          <span class="form-control text-end text-secondary overflow-x-hidden">{{ korInputComputed }}</span>
         </div>
       </div>
       <div class="input-group flex-nowrap">
@@ -17,7 +17,7 @@
         </select>
         <div>
           <input class="form-control text-end" type="number" v-model="otherInput" @input="calKor" placeholder="금액을 입력하세요.">
-          <span class="form-control text-end text-secondary overflow-hidden">{{ otherInputComputed }}</span>
+          <span class="form-control text-end text-secondary overflow-x-hidden">{{ otherInputComputed }}</span>
         </div>
       </div>
     </div>

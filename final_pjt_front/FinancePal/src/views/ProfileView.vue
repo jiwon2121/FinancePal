@@ -1,11 +1,13 @@
 <template>
   <div>
-    <button class="mx-1 btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
-    <nav>
-      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===1}" @click="changePage(1)">프로필</button>
-      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===2}" @click="changePage(2)">포트폴리오</button>
-      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===3}" @click="changePage(3)">상품 추천</button>
-    </nav>
+    <div class="d-flex justify-content-between">
+      <button class="mx-1 btn btn-secondary" @click="router.back()">뒤로 가기</button>
+      <div>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===1}" @click="changePage(1)">활동내역</button>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===2}" @click="changePage(2)">포트폴리오</button>
+        <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===3}" @click="changePage(3)">상품 추천</button>
+      </div>
+    </div>
     <Profile 
       v-if="page===1"
     />

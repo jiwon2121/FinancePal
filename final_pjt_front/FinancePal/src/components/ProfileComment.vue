@@ -1,9 +1,17 @@
 <template>
-  <li>
-    <p>글 제목 : {{ comment.article.title }}</p>
-    <p>댓글 : {{ comment.content }}</p>
-  </li>
-  <button @click="goArticle">글로 가기</button>
+  <tr class="p-0">
+      <td>
+        <a href=""
+          class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+          @click="goArticle">{{ comment.content }}
+        </a>
+      </td>
+      <td>
+        <span>
+          {{ comment.created_at.slice(0, 10) }}
+        </span>
+      </td>
+  </tr>
 </template>
 
 <script setup>

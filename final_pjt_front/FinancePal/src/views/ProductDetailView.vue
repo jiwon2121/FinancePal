@@ -3,9 +3,12 @@
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
     <div class="product-banner border rounded mt-3 mb-5">
       <div class="p-4 header d-flex justify-content-around align-items-center">
-        <div class="d-flex flex-column justify-content-center">
-          <h1 class="product-name">{{ product.fin_prdt_nm }}</h1>
-          <span>{{ product.kor_co_nm }}</span>
+        <div class="d-flex">
+          <h1 class="me-3">🔎</h1>
+          <div class="d-flex flex-column justify-content-center">
+            <h1 class="product-name">{{ product.fin_prdt_nm }}</h1>
+            <span>{{ product.kor_co_nm }}</span>
+          </div>
         </div>
         <template v-if="store.isLogin">
           <button class='btn btn-danger' v-if="isJoin" @click="cancel">해지하기</button>

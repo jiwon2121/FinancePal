@@ -1,16 +1,16 @@
 <template>
   <div>
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
-    <h1>글쓰기</h1>
+    <h1>✏ 글쓰기</h1>
     <br>
     <div class="form-group">
       <form @submit.prevent="create">
         <div class="d-flex justify-content-between">
           <div class="input-group board-type-select">
-            <span class="input-group-text" id="board-type">종류</span>
+            <span class="input-group-text" id="board-type">탭</span>
             <select class="form-select" name="board-type" id="board-type" v-model="boardType">
-              <option class="text-center" :value="null" disabled>--게시판 종류--</option>
-              <option class="text-center" value="free">자유게시판</option>
+              <option class="text-center" :value="null" disabled>--게시판 탭--</option>
+              <option class="text-center" value="free">자유</option>
               <option class="text-center" value="qna">Q&A</option>
               <option class="text-center" value="notice" v-if="store.isStaff || store.isSuper">공지사항</option>
             </select>

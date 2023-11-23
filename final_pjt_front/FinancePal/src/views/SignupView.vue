@@ -1,35 +1,38 @@
 <template>
   <div>
-    <h1>회원가입</h1>
     <div class="form-group">
       <form @submit.prevent="signUp">
-        <div class="input-group">
+        <div class="header d-flex justify-content-between">
+          <h3 class="mt-3">회원가입</h3>
+          <button class="btn btn-success">제출</button>
+        </div>
+        <hr>
+        <div class="input-group my-3">
           <span class="input-group-text">아이디</span>
-          <input class="form-control" type="text" id="username" v-model="username">
+          <input class="form-control" type="text" id="username" v-model="username" placeholder="*필수 값입니다*">
         </div>
-
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">비밀번호</span>
-          <input class="form-control" type="password" id="password1" v-model="password1">
+          <input class="form-control" type="password" id="password1" v-model="password1" placeholder="*필수 값입니다*">
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">비밀번호 확인</span>
-          <input class="form-control" type="password" id="password2" v-model="password2">
+          <input class="form-control" type="password" id="password2" v-model="password2" placeholder="*필수 값입니다*">
         </div>
-        <div class="input-group">
-          <span class="input-group-text">성</span>
+        <div class="input-group my-3">
+          <span class="input-group-text">성 (Last Name)</span>
           <input class="form-control" type="text" id="lastname" ref="lastname">
         </div>
-        <div class="input-group">
-          <span class="input-group-text">이름</span>
+        <div class="input-group my-3">
+          <span class="input-group-text">이름 (First Name)</span>
           <input class="form-control" type="text" id="firstname" ref="firstname">
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">닉네임</span>
           <input class="form-control" type="text" id="nickname" v-model="nickname">
         </div>
         
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">이메일</span>
           <input class="form-control" type="text" id="email-id" v-model="emailId">
           <span class="input-group-text"> @ </span>
@@ -44,26 +47,25 @@
             <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
           </select>
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">생년월일</span>
           <input class="form-control" type="date" id="birth-date" v-model="birthDate">
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
         <span class="input-group-text">성별</span>
           <select class="form-select" name="gender" id="gender" v-model="gender">
             <option value="1">남</option>
             <option value="0">여</option>
           </select>
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
           <span class="input-group-text">연봉</span>
           <input class="form-control" type="number" v-model="salary">
         </div>
-        <div class="input-group">
+        <div class="input-group my-3">
         <span class="input-group-text">통장 잔고</span>
         <input class="form-control" type="number" v-model="balance">
         </div>
-        <button class="btn btn-success">회원 가입</button>
       </form>
     </div>
     </div>
@@ -163,5 +165,4 @@ const signUp = function () {
 </script>
 
 <style scoped>
-
 </style>
