@@ -110,10 +110,25 @@ let markerList = []
 const container = ref(null)
 
 const initMap = () => {
+  let lat = 37.4979
+  let lng = 127.0276
+  
+  if (cityInput.value && areaInput.value) {
+    const geocoder = new kakao.maps.services.Geocoder()
+    geocoder.addressSearch(`${cityInput.value} ${areaInput.value}`, (result, status) => {
+      if (status === kakao.maps.services.Status.OK) {
+        lat = result[0].y
+        lng = result[0].x
+      }
+    })
+  }
+
   const options = {
-    center: new kakao.maps.LatLng(37.4979, 127.0276),
+    center: new kakao.maps.LatLng(lat, lng),
     level: 3
   }
+  const zoomControl = new kakao.maps.ZoomControl()
+  map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
   map = new kakao.maps.Map(container.value, options)
   infowindow = new kakao.maps.InfoWindow({zIndex:1})
 }
