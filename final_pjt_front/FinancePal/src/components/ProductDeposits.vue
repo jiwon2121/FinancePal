@@ -3,7 +3,7 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>금융기관</th>
+          <th>기관명</th>
           <th>상품명</th>
           <th>6개월</th>
           <th>12개월</th>
