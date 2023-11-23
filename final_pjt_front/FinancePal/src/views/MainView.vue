@@ -1,31 +1,40 @@
 <template>
-<div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active" data-bs-interval="10000">
-      <img src="@/assets/ssafy1.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item" data-bs-interval="2000">
-      <img src="@/assets/ssafy2.png" class="d-block w-100" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="@/assets/ssafy3.png" class="d-block w-100" alt="...">
-    </div>
+<div class="main-text"></div>
+<header class="masthead d-flex justify-content-center">
+  <div class="mastbody container d-flex align-items-center flex-column">
+    <h1 class="masthead-heading mb-5">
+      FinancePal
+    </h1>
+    <button class="masthead-btn btn btn-lg btn-light" @click="router.push({ path: 'product' })">시작하기</button>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
+</header>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 
 </script>
 
 <style scoped>
-
+.masthead {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #AFD3E2;
+}
+.mastbody {
+  margin-top: 300px;
+}
+.masthead-heading {
+  color: #146C94;
+}
+.masthead-btn {
+  background-color: #F6F1F1;
+  color: #146C94;
+  border-color: #F6F1F1;
+}
 </style>
