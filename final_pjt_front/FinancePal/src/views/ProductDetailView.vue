@@ -69,8 +69,16 @@ const route = useRoute()
 const router = useRouter()
 const product = ref(null)
 const isJoin = computed(() => {
-  return store[route.params.type].includes(route.params.pk)
+  let flag = false
+  store[route.params.type].forEach((value) => {
+    if (value.fin_prdt_cd === route.params.pk) {
+      flag = true
+    }
+  })
+  return flag
 })
+
+console.log(store.savings)
 
 axios({
   method: 'get',

@@ -24,14 +24,12 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { profileStore } from '@/stores/profileStore'
-import { accountStore } from '@/stores/accountStore'
 import Portfolio from '@/components/Portfolio.vue'
 import Profile from '@/components/Profile.vue'
 import Recommend from '@/components/Recommend.vue'
 
 const page = ref(1)
 const store = profileStore()
-const acc = accountStore()
 const route = useRoute()
 const router = useRouter()
 
