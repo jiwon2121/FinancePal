@@ -3,9 +3,16 @@
     <h1 class="my-3 mb-3">💵 실시간 환율 정보</h1>
     <div class="d-flex flex-column mt-3">
       <div class="input-group mb-3">
-        <span class="input-group-text d-flex justify-content-center">대한민국 원화</span>
-        <div>
-          <input type="number" class="form-control text-end" v-model="korInput" @input="calOther" placeholder="금액을 입력하세요.">
+        <span class="input-group-text d-flex justify-content-center flex-column">
+          <p class="mt-2">대한민국 원화</p>
+          <div>
+            <button class="btn btn-sm btn-outline-success" @click="increase(1)">+1만</button>
+            <button class="btn btn-sm btn-outline-success mx-1" @click="increase(10)">+10만</button>
+            <button class="btn btn-sm btn-outline-success" @click="increase(100)">+100만</button>
+          </div>
+        </span>
+        <div class="d-flex flex-column">
+          <input type="number" class="form-control text-end kor-input" v-model="korInput" @input="calOther" placeholder="금액을 입력하세요.">
           <span class="form-control text-end text-secondary overflow-x-hidden">{{ korInputComputed }}</span>
         </div>
       </div>
@@ -43,9 +50,11 @@ const korInputComputed = computed(() => {
 })
 const otherInputComputed = computed(() => {
   if (country.value.split(" ").length > 1) {
-    return otherInput.value ? otherInput.value.toLocaleString() + " " + country.value.split(" ")[1] : '0 ' + country.value.split(" ")[1]
+    return otherInput.value ? otherInput.value.toString()
+  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " " + country.value.split(" ")[1] : '0 ' + country.value.split(" ")[1]
   } else {
-    return otherInput.value ? otherInput.value.toLocaleString() + " " + country.value : '0 ' + country.value
+    return otherInput.value ? otherInput.value.toString()
+  .replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + " " + country.value : '0 ' + country.value
   }
 })
 
@@ -68,6 +77,10 @@ const calKor = function() {
   }
 }
 
+const increase = function(number) {
+  korInput.value += number * 10000
+  calOther()
+}
 
 onMounted(() => {
   store.updateExchange()
@@ -86,5 +99,8 @@ input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
+}
+.kor-input {
+  height: 60px;
 }
 </style>
