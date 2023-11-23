@@ -42,7 +42,6 @@ const router = createRouter({
       component: SignupView,
       beforeEnter: ((to, from, next) => {
         const accStore = accountStore()
-        console.log(accStore.isLogin)
         if (accStore.isLogin) {
           window.alert('로그인 되어있습니다.')
           next(from)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="form-group">
-      <form @submit.prevent="signUp">
+      <form @submit.prevent="signUpVal">
         <div class="header d-flex justify-content-between">
           <h3 class="mt-3">회원가입</h3>
           <button class="btn btn-success">제출</button>
@@ -10,7 +10,12 @@
         <div class="input-group my-3">
           <span class="input-group-text">아이디</span>
           <input class="form-control" type="text" id="username" v-model="username" placeholder="*필수 값입니다*">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" @click="usernameVal">확인</button>
+          </div>
         </div>
+        <p class="text-danger" v-if="usernameWarning">* 아이디 중복 확인을 해주세요.</p>
+
         <div class="input-group my-3">
           <span class="input-group-text">비밀번호</span>
           <input class="form-control" type="password" id="password1" v-model="password1" placeholder="*필수 값입니다*">
@@ -19,27 +24,53 @@
           <span class="input-group-text">비밀번호 확인</span>
           <input class="form-control" type="password" id="password2" v-model="password2" placeholder="*필수 값입니다*">
         </div>
+        <p class="text-danger" v-if="password1Warning">* 비밀번호를 입력해주세요.</p>
+        <p class="text-danger" v-else-if="password2Warning">* 비밀번호 확인을 해주세요.</p>
+        <p class="text-danger" v-else-if="passwordEq">* 비밀번호가 일치하지 않습니다.</p>
+        
         <div class="input-group my-3">
           <span class="input-group-text">성 (Last Name)</span>
-          <input class="form-control" type="text" id="lastname" ref="lastname">
+          <input class="form-control" type="text" id="lastname" ref="lastname" placeholder="*필수 값입니다*">
         </div>
+        <p class="text-danger" v-if="lastnameWarning">* 성을 입력해주세요.</p>
+
         <div class="input-group my-3">
           <span class="input-group-text">이름 (First Name)</span>
-          <input class="form-control" type="text" id="firstname" ref="firstname">
+          <input class="form-control" type="text" id="firstname" ref="firstname" placeholder="*필수 값입니다*">
         </div>
+        <p class="text-danger" v-if="firstnameWarning">* 이름을 입력해주세요.</p>
+
         <div class="input-group my-3">
           <span class="input-group-text">닉네임</span>
-          <input class="form-control" type="text" id="nickname" v-model="nickname">
+          <input class="form-control" type="text" id="nickname" v-model="nickname" placeholder="*필수 값입니다*">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" @click="nicknameVal">확인</button>
+          </div>
         </div>
+        <p class="text-danger" v-if="nicknameWarning">* 닉네임을 확인해주세요.</p>
         
         <div class="input-group my-3">
           <span class="input-group-text">이메일</span>
           <input class="form-control" type="text" id="email-id" v-model="emailId">
           <span class="input-group-text"> @ </span>
-          <input class="form-control" type="text" id="email-domain" v-model="emailDomain">
+          <select class="form-select" name="domain" id="domain" v-model="emailDomain">
+            <option value="null" disabled>--선택--</option>
+            <option v-for="email in emailList" :value="email">{{ email }}</option>
+            <option value="etc">직접 입력</option>
+          </select>
         </div>
+        <div class="input-group my-3" v-if="emailDomain==='etc'">
+          <span class="input-group-text" ref="emailInput">도메인을 입력해주세요</span>
+          <input class="form-control" type="text" name="email-domain" id="email-domain">
+        </div>
+        <p class="text-danger" v-if="emailWarning">* 올바르지 않은 이메일 입니다.</p>
 
         <div class="me-3 input-group board-type-select">
+          <span class="input-group-text" id="city">도시</span>
+          <select class="form-select" name="city" id="city" v-model="cityInput">
+            <option value="" disabled>도시 선택</option>
+            <option v-for="city in cityList" :value="city">{{ city }}</option>
+          </select>
           <span class="input-group-text" id="area">지역</span>
           <select class="form-select" name="area" id="area" v-model="areaInput">
             <option value="" disabled>지역 선택</option>
@@ -47,10 +78,14 @@
             <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
           </select>
         </div>
+        <p class="text-danger" v-if="cityWarning || areaWarning">* 주소를 입력해 주세요.</p>
+
         <div class="input-group my-3">
           <span class="input-group-text">생년월일</span>
           <input class="form-control" type="date" id="birth-date" v-model="birthDate">
         </div>
+        <p class="text-danger" v-if="birthDateWarning">* 생년월일을 입력해주세요.</p>
+
         <div class="input-group my-3">
         <span class="input-group-text">성별</span>
           <select class="form-select" name="gender" id="gender" v-model="gender">
@@ -58,14 +93,18 @@
             <option value="0">여</option>
           </select>
         </div>
+
         <div class="input-group my-3">
           <span class="input-group-text">연봉</span>
-          <input class="form-control" type="number" v-model="salary">
+          <input class="form-control" type="number" v-model="salary" placeholder="*필수 값입니다*">
         </div>
+        <p class="text-danger" v-if="salaryWarning">* 연봉을 입력해주세요</p>
+
         <div class="input-group my-3">
-        <span class="input-group-text">통장 잔고</span>
-        <input class="form-control" type="number" v-model="balance">
+          <span class="input-group-text">소지 금액</span>
+          <input class="form-control" type="number" v-model="balance" placeholder="*필수 값입니다*">
         </div>
+        <p class="text-danger" v-if="balanceWarning">* 소지 금액 입력해주세요.</p>
       </form>
     </div>
     </div>
@@ -73,7 +112,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 
@@ -87,12 +126,27 @@ const firstname = ref(null)
 const nickname = ref(null)
 const emailId = ref(null)
 const emailDomain = ref(null)
+const emailInput = ref(null)
+const emailComputed = computed(() => {
+  if (emailDomain.value === 'etc') {
+    return emailInput.value.value
+  } else {
+    return emailDomain.value
+  }
+})
 const birthDate = ref(null)
 const gender = ref(1)
 const salary = ref(null)
 const balance = ref(null)
 const cityInput = ref('')
 const areaInput = ref('')
+
+const emailList = [
+  'naver.com',
+  'gmail.com',
+  'daum.net',
+  'kakao.com',
+]
 
 const cityList = [
   "서울특별시",
@@ -132,6 +186,188 @@ const areaObj = {
     "제주도": ["서귀포시","제주시","남제주군","북제주군"],
 }
 
+const usernameWarning = ref(false)
+const usernameConfirm = ref(true)
+const usernameWatch = watch(username, () => {
+    usernameConfirm.value = true
+})
+const usernameVal = function() {
+  if (!username.value) {
+    return
+  }
+  axios({
+    method:'get',
+    url: `http://127.0.0.1:8000/profile/username/validation/${username.value}`
+  })
+    .then(res => {
+      const exists = res.data.exists
+      if (exists) {
+        window.alert('존재하는 아이디입니다.')
+      } else {
+        window.alert('사용 가능한 아이디입니다.')
+        usernameConfirm.value = false
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+const nicknameWarning = ref(false)
+const nicknameConfirm = ref(true)
+const nicknameWatch = watch(username, () => {
+    nicknameConfirm.value = true
+})
+const nicknameVal = function() {
+  if (!nickname.value) {
+    return
+  }
+  axios({
+    method:'get',
+    url: `http://127.0.0.1:8000/profile/nickname/validation/${nickname.value}`
+  })
+    .then(res => {
+      const exists = res.data.exists
+      if (exists) {
+        window.alert('존재하는 닉네임입니다.')
+      } else {
+        window.alert('사용 가능한 닉네임입니다.')
+        nicknameConfirm.value = false
+      }
+    })
+    .catch(err => {
+      console.log(err)
+    })
+}
+
+const password1Warning = ref(false)
+const password2Warning = ref(false)
+const passwordEq = ref(false)
+const lastnameWarning = ref(false)
+const firstnameWarning = ref(false)
+const cityWarning = ref(false)
+const areaWarning = ref(false)
+const birthDateWarning = ref(false)
+const salaryWarning = ref(false)
+const balanceWarning = ref(false)
+const emailWarning = ref(false)
+
+const password1Confirm = function() {
+  if (!password1.value) {
+    password1Warning.value = true
+  }
+}
+
+const password2Confirm = function() {
+  if (!password2.value) {
+    password2Warning.value = true
+  }
+}
+
+const passwordVal = function() {
+  if (password1.value !== password2.value) {
+    passwordEq = true
+  }
+}
+
+const lastnameConfirm = function() {
+  if (!lastname.value.value) {
+    lastnameWarning.value =true
+  }
+}
+
+const firstnameConfirm = function() {
+  console.log(firstname.value.value)
+  if (!firstname.value.value) {
+    firstnameWarning.value = true
+  }
+}
+
+const cityConfirm = function() {
+  if (!city.value) {
+    cityWarning.value = true
+  }
+}
+
+const areaConfirm = function() {
+  if (!area.value) {
+    areaWarning.value = true
+  }
+}
+
+const birthDateConfrim = function() {
+  if (!birthDate.value) {
+    birthDateWarning.value = true
+  }
+}
+
+const salaryConfirm = function() {
+  if (!salary.value) {
+    salaryWarning.value = true
+  }
+}
+
+const balanceConfirm = function() {
+  if (!balance.value) {
+    balanceWarning.value = true
+  }
+}
+
+const emailVal = function() {
+  if (emailId && !emailComputed) {
+    emailWarning.value = true
+  }
+}
+
+const signUpVal = function() {
+  usernameWarning.value = usernameConfirm.value
+  nicknameWarning.value = nicknameConfirm.value
+  password1Warning.value = false
+  password2Warning.value = false
+  passwordEq.value = false
+  lastnameWarning.value = false
+  firstnameWarning.value = false
+  cityWarning.value = false
+  areaWarning.value = false
+  birthDateWarning.value = false
+  salaryWarning.value = false
+  balanceWarning.value = false
+  emailWarning.value = false
+  
+  password1Confirm()
+  password2Confirm()
+  passwordVal()
+  lastnameConfirm()
+  firstnameConfirm()
+  cityConfirm()
+  areaConfirm()
+  birthDateConfrim()
+  salaryConfirm()
+  balanceConfirm()
+  emailVal()
+
+  if (
+    usernameWarning.value||
+    nicknameWarning||
+    password1Warning.value||
+    password2Warning.value||
+    passwordEq.value||
+    lastnameWarning.value||
+    firstnameWarning.value||
+    cityWarning.value||
+    areaWarning.value||
+    birthDateWarning.value||
+    salaryWarning.value||
+    balanceWarning.value||
+    emailWarning.value
+  ) {
+    window.alert('올바르지 않은 입력이 있습니다.')
+  } else {
+    signUp()
+  }
+
+}
+
 const signUp = function () {
   const data = {
     username: username.value,
@@ -147,18 +383,15 @@ const signUp = function () {
     salary: salary.value,
     balance: balance.value,
   }
-  console.log(data)
   axios({
     method: 'post',
     url: 'http://127.0.0.1:8000/accounts/signup/',
     data
   })
     .then(res => {
-      console.log(res)
       router.push({name: 'welcome'})
     })
     .catch(err => {
-      console.log(data)
       console.log(err)
     })
 }
