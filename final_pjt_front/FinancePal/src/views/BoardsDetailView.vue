@@ -1,22 +1,37 @@
 <template>
   <div v-if="board">
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
-    
     <template v-if="isEdit">
-      <form @submit.prevent="editArticle">
-        <select name="board-type" id="board-type" v-model="boardType">
-          <option value="" disabled>--게시판 종류--</option>
-          <option value="free">자유게시판</option>
-          <option value="qna">Q&A</option>
-          <option value="notice" v-if="store.isStaff || store.isSuper">공지사항</option>
-        </select>
-        <br>
-        <input type="text" :value="board.title" ref="titleInput">
-        <hr>
-        <textarea name="content" id="content" cols="30" rows="10" ref="contentInput">{{ board.content }}</textarea>
-        <button>수정</button>
-      </form>
-      <button @click="changeState">취소</button>
+      <h1>📝 글 수정하기</h1>
+      <br>
+      <div class="form-group">
+        <form @submit.prevent>
+          <div class="d-flex justify-content-between">
+            <div class="input-group board-type-select">
+              <span class="input-group-text" id="board-type">탭</span>
+              <select class="form-select" name="board-type" id="board-type" v-model="boardType">
+                <option class="text-center" value="free">자유</option>
+                <option class="text-center" value="qna">Q&A</option>
+                <option class="text-center" value="notice" v-if="store.isStaff || store.isSuper">공지사항</option>
+              </select>
+            </div>
+            <div class="d-flex">
+              <button class="btn btn-secondary me-3" @click="changeState">취소</button>
+              <button class="btn btn-success" @click="editArticle">수정</button>
+            </div>
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text" id="title">제목</span>
+            <input class="form-control" type="text" :value="board.title" ref="titleInput" aria-describedby="title">
+          </div>
+          <br>
+          <div class="input-group">
+            <span class="input-group-text" id="content">내용</span>
+            <textarea class="form-control" name="content" id="content" cols="30" rows="10" ref="contentInput">{{ board.content }}</textarea>
+          </div>
+        </form>
+      </div>
     </template>
     
     <template v-else>
@@ -191,5 +206,16 @@ onMounted(updatePage)
 }
 .comment-section {
   width: 70%;
+}
+.form-select {
+  width: 40%;
+}
+
+.board-type-select {
+  width: 60%;
+}
+
+#content {
+  height: 400px;
 }
 </style>

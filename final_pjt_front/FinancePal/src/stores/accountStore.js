@@ -63,7 +63,7 @@ export const accountStore = defineStore('account', () => {
         updateProfile()
       })
       .catch(err => {
-        console.log(err)
+        window.alert('아이디 또는 비밀번호가 잘못되었습니다.')
       })
     }
     

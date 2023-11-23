@@ -29,16 +29,18 @@
               <button type="button" class="auth-log me-3 btn btn-sm" @click="accStore.logOut">로그아웃</button>
             </template>
             <template v-else>
-              <button class="btn btn-outline-info me-3 auth-link">
+              <button class="btn btn-sm btn-outline-info me-3 auth-link">
                 <RouterLink class="nav-link" :to="{ name: 'signup'}">회원가입</RouterLink>
               </button>
-              <button type="button" class="auth-log me-3 btn btn-outline-info" @click="goLogin">로그인</button>
+              <button type="button" class="auth-log me-3 btn btn-sm btn-outline-info" @click="goLogin">로그인</button>
             </template>
           </ul>
         </div>
       </div>
     </nav>
-    <RouterView class="router-view"/>
+    <div class="router-view">
+      <RouterView/>
+    </div>
   </div>
 </template>
 
