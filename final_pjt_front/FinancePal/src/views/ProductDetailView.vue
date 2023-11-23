@@ -1,24 +1,64 @@
 <template>
   <div>
-    <h1>상품 상세 보기</h1>
+    <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
+    <div class="border rounded mt-3 mb-5">
+      <div class="p-4 header d-flex justify-content-around align-items-center">
+        <div class="d-flex flex-column justify-content-center">
+          <h1 class="product-name">{{ product.fin_prdt_nm }}</h1>
+          <span>{{ product.kor_co_nm }}</span>
+        </div>
+        <button class="btn btn-primary">가입하기</button>
+      </div>
+    </div>
     <template v-if="product">
-      <p>금융기관 : {{ product.kor_co_nm }}</p>
-      <p>상품명 : {{ product.fin_prdt_nm }}</p>
-      <p>가입 방법 : {{ product.join_way }}</p>
-      <p>우대 조건 : {{ product.spcl_cnd }}</p>
-      <p>가입 제한 : {{ convert(product.join_deny) }}</p>
-      <p>가입 대상 : {{ product.join_member }}</p>
-      <p>최고 한도 : {{ product.max_limit === null ? '제한없음' : product.max_limit }}</p>
+      <div class="row">
+        <div class="col-2">
+          <p class="text-end"><strong>가입 방법</strong></p>
+        </div>
+        <div class="col-10">
+          {{ product.join_way }}
+        </div>
+        <hr>
+        <div class="col-2">
+          <p class="text-end"><strong>우대 조건</strong></p>
+        </div>
+        <div class="col-10">
+          {{ product.spcl_cnd }}
+        </div>
+        <hr>
+        <div class="col-2">
+          <p class="text-end"><strong>가입 제한</strong></p>
+        </div>
+        <div class="col-10">
+          {{ convert(product.join_deny) }}
+        </div>
+        <hr>
+        <div class="col-2">
+          <p class="text-end"><strong>가입 대상</strong></p>
+        </div>
+        <div class="col-10">
+          {{ product.join_member }}
+        </div>
+        <hr>
+        <div class="col-2">
+          <p class="text-end"><strong>최고 한도</strong></p>
+        </div>
+        <div class="col-10">
+          {{ product.max_limit === null ? '제한없음' : product.max_limit.toLocaleString() + '원' }}
+        </div>
+        <hr>
+      </div>
     </template>
   </div>
 </template>
 
 <script setup>
 import { ref } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 
 const route = useRoute()
+const router = useRouter()
 const product = ref(null)
 
 axios({
@@ -41,6 +81,7 @@ const convert = function(type) {
     return '일부제한'
   }
 }
+
 </script>
 
 <style scoped>
