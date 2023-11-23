@@ -1,6 +1,6 @@
 <template>
   <li>
-    <p>제목 : {{ comment.article.title }}</p>
+    <p>글 제목 : {{ comment.article.title }}</p>
     <p>댓글 : {{ comment.content }}</p>
   </li>
   <button @click="goArticle">글로 가기</button>

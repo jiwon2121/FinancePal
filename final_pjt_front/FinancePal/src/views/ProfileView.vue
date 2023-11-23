@@ -1,10 +1,10 @@
 <template>
   <div>
-    <!-- <nav v-if="route.params.username === acc.userName"> -->
+    <button class="mx-1 btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
     <nav>
-      <button @click="changePage(1)">프로필</button>
-      <button @click="changePage(2)">포트폴리오</button>
-      <button @click="changePage(3)">상품추천</button>
+      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===1}" @click="changePage(1)">프로필</button>
+      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===2}" @click="changePage(2)">포트폴리오</button>
+      <button type="button" class="mx-1 btn btn-outline-dark" :class="{active:page===3}" @click="changePage(3)">상품 추천</button>
     </nav>
     <Profile 
       v-if="page===1"
@@ -20,7 +20,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import { useRoute, onBeforeRouteUpdate } from 'vue-router'
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { profileStore } from '@/stores/profileStore'
 import { accountStore } from '@/stores/accountStore'
 import Portfolio from '@/components/Portfolio.vue'
@@ -31,6 +31,7 @@ const page = ref(1)
 const store = profileStore()
 const acc = accountStore()
 const route = useRoute()
+const router = useRouter()
 
 const changePage = function(num) {
   page.value = num

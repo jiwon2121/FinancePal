@@ -108,10 +108,21 @@ def recommend_by_profile(request, username):
         df_saving['points'] = df_saving['age_diff'] + df_saving['salary_diff']//1000000 + df_saving['balance_diff']//1000000
         df_saving = df_saving.sort_values('points')
 
-
+        deposit_list = []
+        for prdt_cd in df_deposit.head(5).index:
+            deposit = Deposit.objects.get(pk = prdt_cd)
+            deposit_serializer = DepositSerializer(deposit)
+            deposit_list.append(deposit_serializer)
+            
+        saving_list = []
+        for prdt_cd in df_saving.head(5).index:
+            saving = Saving.objects.get(pk = prdt_cd)
+            saving_serializer = SavingSerializer(saving)
+            saving_list.append(saving_serializer)
+        
         json_response = {
-            'deposits': df_deposit.head(5).index,
-            'savings': df_saving.head(5).index,
+            'deposits': deposit_list,
+            'savings': saving_list,
         }
         return Response({'recommendations': json_response})
     else:
