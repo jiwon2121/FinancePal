@@ -27,7 +27,7 @@
     6. 상품 추천
   * 스타일링은 부트스트랩을 사용하기로 정하고, 페이지 기본 색상을 결정
   * 아래와 같이 화면을 구상
-![Alt text](image.png)
+![Alt text](readme_images/image.png)
   
   * 구현 정도:
     - 명세에 나온 필수 기능들은 모두 구현
@@ -35,7 +35,7 @@
 
 
 3. 데이터 베이스 모델링(ERD)
-![AAAAAA.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/7105a7ed-85c0-401b-a1e6-35406eaee9a3/b40d576c-44f2-4fc8-be74-e6776db809a8/AAAAAA.png)
+![AAAAAA.png](readme_images/AAAAAA.png)
 
 4. 금융 상품 추천 알고리즘에 대한 기술적 설명
   * 고객에 맞는 상품을 추천하기 위해 회원가입 시 회원의 생년월일, 급여, 소유금을 입력 받아 db에 저장한다.
