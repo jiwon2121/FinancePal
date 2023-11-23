@@ -1,6 +1,6 @@
 <template>
   <div class="main-body">
-    <nav class="navbar navbar-expand-lg fixed-top">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top">
       <div class="container-fluid">
         <RouterLink class="navbar-brand" :to="{ name: 'main'}">FinancePal</RouterLink>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

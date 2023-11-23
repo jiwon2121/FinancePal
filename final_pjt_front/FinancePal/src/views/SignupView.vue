@@ -1,46 +1,41 @@
 <template>
   <div>
-    <h1>SignupView</h1>
-    <form @submit.prevent="signUp">
-      <p>User Name</p>
-      <input type="text" id="username" v-model="username">
-      <br>
-      
-      <p>Password</p>
-      <input type="password" id="password1" v-model="password1">
-      <br>
-      
-      <p>Password Comfirm</p>
-      <input type="password" id="password2" v-model="password2">
-      <br>
-
-      <p>lastname</p>
-      <input type="text" id="lastname" ref="lastname">
-      <br>
-
-      <p>firstname</p>
-      <input type="text" id="firstname" ref="firstname">
-      <br>
-
-      <p>nickname</p>
-      <input type="text" id="nickname" v-model="nickname">
-      <br>
-
-      <p>e-mail</p>
-      <input type="text" id="email-id" v-model="emailId">
-      <span> @ </span>
-      <input type="text" id="email-domain" v-model="emailDomain">
-      <br>
-
-      <p>Address</p>
-      <div class="me-3 input-group board-type-select">
-          <span class="input-group-text" id="city">도시</span>
-          <select class="form-select" name="city" id="city" v-model="cityInput">
-            <option value="" disabled>시/도 선택</option>
-            <option v-for="city in cityList" :value="city">{{ city }}</option>
-          </select>
+    <h1>회원가입</h1>
+    <div class="form-group">
+      <form @submit.prevent="signUp">
+        <div class="input-group">
+          <span class="input-group-text">아이디</span>
+          <input class="form-control" type="text" id="username" v-model="username">
         </div>
-    
+
+        <div class="input-group">
+          <span class="input-group-text">비밀번호</span>
+          <input class="form-control" type="password" id="password1" v-model="password1">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">비밀번호 확인</span>
+          <input class="form-control" type="password" id="password2" v-model="password2">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">성</span>
+          <input class="form-control" type="text" id="lastname" ref="lastname">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">이름</span>
+          <input class="form-control" type="text" id="firstname" ref="firstname">
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">닉네임</span>
+          <input class="form-control" type="text" id="nickname" v-model="nickname">
+        </div>
+        
+        <div class="input-group">
+          <span class="input-group-text">이메일</span>
+          <input class="form-control" type="text" id="email-id" v-model="emailId">
+          <span class="input-group-text"> @ </span>
+          <input class="form-control" type="text" id="email-domain" v-model="emailDomain">
+        </div>
+
         <div class="me-3 input-group board-type-select">
           <span class="input-group-text" id="area">지역</span>
           <select class="form-select" name="area" id="area" v-model="areaInput">
@@ -49,29 +44,30 @@
             <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
           </select>
         </div>
-      <br>
+        <div class="input-group">
+          <span class="input-group-text">생년월일</span>
+          <input class="form-control" type="date" id="birth-date" v-model="birthDate">
+        </div>
+        <div class="input-group">
+        <span class="input-group-text">성별</span>
+          <select class="form-select" name="gender" id="gender" v-model="gender">
+            <option value="1">남</option>
+            <option value="0">여</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <span class="input-group-text">연봉</span>
+          <input class="form-control" type="number" v-model="salary">
+        </div>
+        <div class="input-group">
+        <span class="input-group-text">통장 잔고</span>
+        <input class="form-control" type="number" v-model="balance">
+        </div>
+        <button class="btn btn-success">회원 가입</button>
+      </form>
+    </div>
+    </div>
 
-      <p>Birth Date</p>
-      <input type="date" id="birth-date" v-model="birthDate">
-      <br>
-
-      <p>Gender</p>
-      <select name="gender" id="gender" v-model="gender">
-        <option value="1">남</option>
-        <option value="0">여</option>
-      </select>
-      <br>
-      
-      <p>Salary</p>
-      <input type="number" v-model="salary">
-      <br>
-
-      <p>Balance</p>
-      <input type="number" v-model="balance">
-      <br>
-      <button>회원 가입</button>
-    </form>
-  </div>
 </template>
 
 <script setup>
