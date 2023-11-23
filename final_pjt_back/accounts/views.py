@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import User
+from django.contrib.auth import get_user_model
 from .serializers import ProfileSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes
@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.authentication import TokenAuthentication
 from django.conf import settings
 from products.models import Deposit, Saving
-from products.serializers import DepositSerializer, SavingSerializer, DepositOptionSerializer, SavingOptionSerializer
+from products.serializers import DepositSerializer, SavingSerializer
 import random
 import pandas as pd
 import sqlite3
@@ -17,7 +17,8 @@ import datetime
 @api_view(['GET'])
 def profile(request, username):
     if request.method == 'GET':
-        user = User.objects.get(username=username)
+        user_model = get_user_model
+        user = user_model.objects.get(username=username)
         user_serializer = ProfileSerializer(user)
         return Response(user_serializer.data)
     
@@ -26,7 +27,8 @@ def profile(request, username):
 def permission(request, username):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            user = User.objects.get(username=username)
+            user_model = get_user_model
+            user = user_model.objects.get(username=username)
             res = {
                 'is_super': user.is_superuser,
                 'is_staff': user.is_staff,
@@ -40,7 +42,8 @@ def permission(request, username):
 
 @api_view(['GET'])
 def dummy_user_deposit_saving(request):
-    users = User.objects.all()
+    user_model = get_user_model
+    users = user_model.objects.all()
     deposit_products = list(Deposit.objects.all())
     saving_products = list(Saving.objects.all())
     for user in users:
@@ -62,7 +65,8 @@ def recommend_by_profile(request, username):
             age = today.year-birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
             return age
         
-        user = User.objects.get(username=username)
+        user_model = get_user_model
+        user = user_model.objects.get(username=username)
         con = sqlite3.connect("db.sqlite3")
         query = 'SELECT * FROM accounts_user_deposit_products'
         deposit_products = pd.read_sql(query, con)
@@ -112,13 +116,13 @@ def recommend_by_profile(request, username):
         for prdt_cd in df_deposit.head(5).index:
             deposit = Deposit.objects.get(pk = prdt_cd)
             deposit_serializer = DepositSerializer(deposit)
-            deposit_list.append(deposit_serializer)
+            deposit_list.append(deposit_serializer.data)
             
         saving_list = []
         for prdt_cd in df_saving.head(5).index:
             saving = Saving.objects.get(pk = prdt_cd)
             saving_serializer = SavingSerializer(saving)
-            saving_list.append(saving_serializer)
+            saving_list.append(saving_serializer.data)
         
         json_response = {
             'deposits': deposit_list,
@@ -156,3 +160,12 @@ def cancel(request, prdt_type, prdt_cd):
 
     return Response({'msg': 'okay'},status=status.HTTP_201_CREATED)
 
+@api_view(['GET'])
+def username_validation(request, username):
+    user_model = get_user_model()
+    return Response({'exists': user_model.objects.filter(username=username).exists()})
+
+@api_view(['GET'])
+def nickname_validation(request, nickname):
+    user_model = get_user_model()
+    return Response({'exists': user_model.objects.filter(nickname=nickname).exists()})

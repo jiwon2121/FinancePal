@@ -9,4 +9,6 @@ urlpatterns = [
     path('permission/<str:username>/', views.permission),
     path('join/<str:prdt_type>/<str:prdt_cd>/', views.join),
     path('cancel/<str:prdt_type>/<str:prdt_cd>/', views.cancel),
+    path('username/validation/<str:username>/', views.username_validation),
+    path('nickname/validation/<str:nickname>/', views.nickname_validation)
 ]
