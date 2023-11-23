@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div v-if="product">
     <button class="btn btn-secondary mb-3" @click="router.back()">뒤로 가기</button>
-    <div class="border rounded mt-3 mb-5">
+    <div class="product-banner border rounded mt-3 mb-5">
       <div class="p-4 header d-flex justify-content-around align-items-center">
         <div class="d-flex flex-column justify-content-center">
           <h1 class="product-name">{{ product.fin_prdt_nm }}</h1>
           <span>{{ product.kor_co_nm }}</span>
         </div>
         <template v-if="store.isLogin">
-          <button class='btn' v-if="isJoin" @click="cancel">해지하기</button>
-          <button class='btn' v-else @click="join">가입하기</button>
+          <button class='btn btn-danger' v-if="isJoin" @click="cancel">해지하기</button>
+          <button class='btn btn-success' v-else @click="join">가입하기</button>
         </template>
       </div>
     </div>
@@ -56,7 +56,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import axios from 'axios'
 import { accountStore } from '@/stores/accountStore'
@@ -122,5 +122,7 @@ const cancel = function() {
 </script>
 
 <style scoped>
-
+.product-banner {
+  background-color: whitesmoke;
+}
 </style>

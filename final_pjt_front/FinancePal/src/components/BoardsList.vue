@@ -19,7 +19,7 @@
           <td>
             <a href="" class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover" @click="goDetail(board.id)">{{ board.title }}</a>
           </td>
-          <td class="text-center">{{ board.created_at.slice(0, 10) }}</td>
+          <td class="text-center">{{ board.created_at.slice(0, 4) + '년 '+ board.created_at.slice(5, 7) + '월 ' + board.created_at.slice(8, 10) + '일'  }}</td>
         </tr>
       </template>
     </tbody>
