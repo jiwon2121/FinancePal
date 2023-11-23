@@ -1,52 +1,99 @@
 <template>
-  <div>
-    포트폴리오
+  <div v-if="store.profile" class="mt-4 mt-3 mb-5">
+  <h1 class="text-center">📊 {{ store.profile.nickname }}님의 포트폴리오</h1>
+  <hr>
+  <div class="row">
+    <div class="col-3">
+      <ul class="list-group">
+        <li class="list-group-item p-0">
+          <div class="row">
+            <div class="col-3 ms-2">
+              <p class="text-center mt-3">잔고</p>
+            </div>
+            <div class="col-8">
+              <p class="mt-3 text-end overflow-x-hidden">
+                {{ store.profile.balance.toLocaleString() + " 원" }}
+              </p>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item p-0">
+          <div class="row">
+            <div class="col-3 ms-2">
+              <p class="text-center mt-3">연봉</p>
+            </div>
+            <div class="col-8">
+              <p class="mt-3 text-end overflow-x-hidden">
+                {{ store.profile.salary.toLocaleString() + " 원" }}
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="col-9 row">
+      <div class="col-6">
+        <table class="table table-striped">
+          <thead>
+            <tr class="text-center">
+              <th class="col">예금</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <PortfolioProduct
+              v-for="product in store.profile.deposit_products"
+              :product="product"
+              type="deposits"
+            />
+          </tbody>
+        </table>
+      </div>
+      <div class="col-6">
+        <table class="table table-striped">
+          <thead>
+            <tr class="text-center">
+              <th class="col">적금</th>
+            </tr>
+          </thead>
+          <tbody class="table-group-divider">
+            <PortfolioProduct
+              v-for="product in store.profile.saving_products"
+              :product="product"
+              type="savings"
+            />
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  <div class="border rounded p-5 mt-5 d-flex justify-content-center align-items-center flex-column">
+    <h4>가입 상품 금리 비교 그래프</h4>
+    <Chart
+      :size="{ width: 600, height: 520 }"
+      :data="prdt"
+      :margin="margin"
+      :direction="direction"
+      :axis="axis">
+  
+      <template #layers>
+        <Grid strokeDasharray="2,2" />
+        <Bar :dataKeys="['상품명', '저축금리']" :barStyle="{ fill: '#19A7CE' }" />
+        <Bar :dataKeys="['상품명', '최고우대금리']" :barStyle="{ fill: '#146C94' }" />
+      </template>
+  
+      <template #widgets>
+        <Tooltip
+          borderColor="#146C94"
+          :config="{
+            '저축금리': { color: '#19A7CE' },
+            '최고우대금리': { color: '#146C94' },
+          }"
+        />
+      </template>
+    </Chart>
   </div>
-  <p>잔고: {{ store.profile.balance }}</p>
-  <p>연봉: {{ store.profile.salary }}</p>
-  <p>가입 상품</p>
-  <div>
-    <p>----예금----</p>
-    <ul>
-      <PortfolioProduct
-        v-for="product in store.profile.deposit_products"
-        :product="product"
-        type="deposits"
-      />
-    </ul>
-    <p>----적금-----</p>
-    <ul>
-      <PortfolioProduct
-        v-for="product in store.profile.saving_products"
-        :product="product"
-        type="savings"
-      />
-    </ul>
   </div>
-  <Chart
-    :size="{ width: 600, height: 520 }"
-    :data="prdt"
-    :margin="margin"
-    :direction="direction"
-    :axis="axis">
-
-    <template #layers>
-      <Grid strokeDasharray="2,2" />
-      <Bar :dataKeys="['상품명', '저축금리']" :barStyle="{ fill: '#19A7CE' }" />
-      <Bar :dataKeys="['상품명', '최고우대금리']" :barStyle="{ fill: '#146C94' }" />
-    </template>
-
-    <template #widgets>
-      <Tooltip
-        borderColor="#146C94"
-        :config="{
-          '저축금리': { color: '#19A7CE' },
-          '최고우대금리': { color: '#146C94' },
-        }"
-      />
-    </template>
-
-  </Chart>
 </template>
 
 <script setup>

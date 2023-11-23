@@ -1,8 +1,12 @@
 <template>
-  <li>
-    <span>{{ product.fin_prdt_nm }}</span>
-    <button @click="goProduct">상품 페이지</button>
-  </li>
+  <tr class="p-0">
+    <td class="text-center">
+      <a href=""
+        class="link-body-emphasis link-offset-2 link-underline-opacity-25 link-underline-opacity-75-hover"
+        @click="goProduct">{{ product.fin_prdt_nm }}
+      </a>
+    </td>
+  </tr>
 </template>
 
 <script setup>

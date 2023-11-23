@@ -112,13 +112,13 @@ def recommend_by_profile(request, username):
         for prdt_cd in df_deposit.head(5).index:
             deposit = Deposit.objects.get(pk = prdt_cd)
             deposit_serializer = DepositSerializer(deposit)
-            deposit_list.append(deposit_serializer)
+            deposit_list.append(deposit_serializer.data)
             
         saving_list = []
         for prdt_cd in df_saving.head(5).index:
             saving = Saving.objects.get(pk = prdt_cd)
             saving_serializer = SavingSerializer(saving)
-            saving_list.append(saving_serializer)
+            saving_list.append(saving_serializer.data)
         
         json_response = {
             'deposits': deposit_list,

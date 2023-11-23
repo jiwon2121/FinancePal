@@ -66,7 +66,7 @@
       <p class="content">{{ board.content }}</p>
       <hr>
       <div class="comment-box">
-        <h4>댓글 작성하기</h4>
+        <h4>🗨 댓글 작성하기</h4>
         <form v-if="store.isLogin" @submit.prevent="writeComment" ref="commentForm">
           <div class="input-group comment-section">
             <textarea class="form-control" name="comment" id="comment" cols="30" rows="3" ref="comment"></textarea>

@@ -1,6 +1,6 @@
 <template>
   <div v-if="store.profile" class="mt-4 mt-3 mb-5">
-    <h1 class="text-center">{{ store.profile.nickname }}님의 활동내역</h1>
+    <h1 class="text-center">✍ {{ store.profile.nickname }}님의 활동내역</h1>
     <hr>
     <div class="row">
       <div class="col-3">
@@ -72,7 +72,6 @@
             </tbody>
           </table>
         </div>
-
       </div>
     </div>
   </div>
