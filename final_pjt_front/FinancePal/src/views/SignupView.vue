@@ -88,8 +88,8 @@
         <div class="input-group my-3">
         <span class="input-group-text">성별</span>
           <select class="form-select" name="gender" id="gender" v-model="gender">
-            <option value="1">남</option>
-            <option value="0">여</option>
+            <option value="true">남</option>
+            <option value="false">여</option>
           </select>
         </div>
 
@@ -134,7 +134,7 @@ const emailComputed = computed(() => {
   }
 })
 const birthDate = ref(null)
-const gender = ref(1)
+const gender = ref(true)
 const salary = ref(null)
 const balance = ref(null)
 const cityInput = ref('')
@@ -361,6 +361,7 @@ const signUpVal = function() {
   ) {
     window.alert('올바르지 않은 입력이 있습니다.')
   } else {
+    console.log(gender.value)
     signUp()
   }
 
@@ -381,6 +382,7 @@ const signUp = function () {
     salary: salary.value,
     balance: balance.value,
   }
+  console.log(data)
   axios({
     method: 'post',
     url: 'http://127.0.0.1:8000/accounts/signup/',
@@ -390,7 +392,6 @@ const signUp = function () {
       router.push({name: 'welcome'})
     })
     .catch(err => {
-      console.log(err)
     })
 }
 </script>
