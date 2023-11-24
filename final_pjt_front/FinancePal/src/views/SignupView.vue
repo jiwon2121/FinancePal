@@ -265,7 +265,7 @@ const password2Confirm = function() {
 
 const passwordVal = function() {
   if (password1.value !== password2.value) {
-    passwordEq = true
+    passwordEq.value = true
   }
 }
 
@@ -389,7 +389,8 @@ const signUp = function () {
     data
   })
     .then(res => {
-      router.push({name: 'welcome'})
+      window.alert('가입을 환영합니다.')
+      // router.push({name: 'welcome'})
     })
     .catch(err => {
     })

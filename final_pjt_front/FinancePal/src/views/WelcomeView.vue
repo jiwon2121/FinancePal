@@ -13,7 +13,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const goMain = function() {
-  router.push({name: 'login'})
+  router.replace({name: 'login'})
 }
 </script>
 
