@@ -360,23 +360,8 @@ const signUpVal = function() {
     emailWarning.value
   ) {
     window.alert('올바르지 않은 입력이 있습니다.')
-    console.log(usernameWarning.value)
-    console.log(nicknameWarning)
-    console.log(password1Warning.value)
-    console.log(password2Warning.value)
-    console.log(passwordEq.value)
-    console.log(lastnameWarning.value)
-    console.log(firstnameWarning.value)
-    console.log(cityWarning.value)
-    console.log(areaWarning.value)
-    console.log(birthDateWarning.value)
-    console.log(salaryWarning.value)
-    console.log(balanceWarning.value)
-    console.log(emailWarning.value)
   } else {
-    // signUp()
-    console.log(cityInput.value)
-    console.log(areaInput.value)
+    signUp()
   }
 
 }
