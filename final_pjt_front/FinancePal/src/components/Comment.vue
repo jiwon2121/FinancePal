@@ -1,11 +1,12 @@
 <template>
   <div>
     <template v-if="isEdit">
-      <form @submit.prevent="editComment">
-        <input type="text" :value="comment.content" ref="commentInput">
-        <button>수정</button>
-      </form>
-      <button @click="changeState">취소</button>
+      <div class="input-group comment-section">
+        <span class="input-group-text" id="board-type">댓글 수정</span>
+        <input class="form-control" type="text" :value="comment.content" ref="commentInput">
+        <button class="btn btn-secondary" @click="changeState">취소</button>
+        <button class="btn btn-success" @click="editComment">수정</button>
+      </div>
     </template>
 
     <template v-else>
@@ -92,5 +93,7 @@ const goProfile = function(username) {
 </script>
 
 <style scoped>
-
+.comment-section {
+  width: 70%;
+}
 </style>
