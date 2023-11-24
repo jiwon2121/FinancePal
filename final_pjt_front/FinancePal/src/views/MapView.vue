@@ -45,8 +45,6 @@ const cityInput = ref(store.city)
 const areaInput = ref(store.area)
 const bankInput = ref('')
 
-console.log(store.address)
-
 const cityList = [
   "서울특별시",
   "인천광역시",
@@ -112,18 +110,25 @@ let markerList = []
 const container = ref(null)
 
 const initMap = () => {
-  let lat = 37.4979
+  let lat = 37.5509646154244
   let lng = 127.0276
   
   if (cityInput.value && areaInput.value) {
     const geocoder = new kakao.maps.services.Geocoder()
     geocoder.addressSearch(`${cityInput.value} ${areaInput.value}`, (result, status) => {
       if (status === kakao.maps.services.Status.OK) {
-        lat = result[0].y
-        lng = result[0].x
+        const options = {
+          center: new kakao.maps.LatLng(result[0].y, result[0].x),
+          level: 3
+        }
+        map = new kakao.maps.Map(container.value, options)
+        const zoomControl = new kakao.maps.ZoomControl()
+        map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
+        infowindow = new kakao.maps.InfoWindow({zIndex:1})
+        return
       }
     })
-  }
+  } 
 
   const options = {
     center: new kakao.maps.LatLng(lat, lng),
