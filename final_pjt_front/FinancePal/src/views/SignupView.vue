@@ -74,7 +74,6 @@
           <span class="input-group-text" id="area">지역</span>
           <select class="form-select" name="area" id="area" v-model="areaInput">
             <option value="" disabled>지역 선택</option>
-            <option value="all" v-if="cityInput">전체</option>
             <option v-for="area in areaObj[cityInput]" :value="area">{{ area }}</option>
           </select>
         </div>
@@ -277,20 +276,19 @@ const lastnameConfirm = function() {
 }
 
 const firstnameConfirm = function() {
-  console.log(firstname.value.value)
   if (!firstname.value.value) {
     firstnameWarning.value = true
   }
 }
 
 const cityConfirm = function() {
-  if (!city.value) {
+  if (!cityInput.value) {
     cityWarning.value = true
   }
 }
 
 const areaConfirm = function() {
-  if (!area.value) {
+  if (!areaInput.value) {
     areaWarning.value = true
   }
 }
@@ -348,7 +346,7 @@ const signUpVal = function() {
 
   if (
     usernameWarning.value||
-    nicknameWarning||
+    nicknameWarning.value||
     password1Warning.value||
     password2Warning.value||
     passwordEq.value||
@@ -362,8 +360,23 @@ const signUpVal = function() {
     emailWarning.value
   ) {
     window.alert('올바르지 않은 입력이 있습니다.')
+    console.log(usernameWarning.value)
+    console.log(nicknameWarning)
+    console.log(password1Warning.value)
+    console.log(password2Warning.value)
+    console.log(passwordEq.value)
+    console.log(lastnameWarning.value)
+    console.log(firstnameWarning.value)
+    console.log(cityWarning.value)
+    console.log(areaWarning.value)
+    console.log(birthDateWarning.value)
+    console.log(salaryWarning.value)
+    console.log(balanceWarning.value)
+    console.log(emailWarning.value)
   } else {
-    signUp()
+    // signUp()
+    console.log(cityInput.value)
+    console.log(areaInput.value)
   }
 
 }
@@ -377,7 +390,7 @@ const signUp = function () {
     first_name: firstname.value.value,
     last_name: lastname.value.value,
     email: `${emailId.value}@${emailDomain.value}`,
-    address: `${cityInput} ${areaInput}`,
+    address: `${cityInput.value} ${areaInput.value}`,
     birth_date: birthDate.value,
     gender: gender.value,
     salary: salary.value,

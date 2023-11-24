@@ -45,6 +45,8 @@ const cityInput = ref(store.city)
 const areaInput = ref(store.area)
 const bankInput = ref('')
 
+console.log(store.address)
+
 const cityList = [
   "서울특별시",
   "인천광역시",
@@ -127,9 +129,9 @@ const initMap = () => {
     center: new kakao.maps.LatLng(lat, lng),
     level: 3
   }
+  map = new kakao.maps.Map(container.value, options)
   const zoomControl = new kakao.maps.ZoomControl()
   map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT)
-  map = new kakao.maps.Map(container.value, options)
   infowindow = new kakao.maps.InfoWindow({zIndex:1})
 }
 
