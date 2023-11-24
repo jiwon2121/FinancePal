@@ -8,7 +8,7 @@ class User(AbstractUser):
     nickname = models.CharField(max_length=20, unique=True)
     address = models.TextField(blank=True)
     birth_date = models.DateField(blank=True)
-    gender = models.BooleanField() # true: 남자, false: 여자
+    gender = models.BooleanField(null=True, default=0) # true: 남자, false: 여자
     salary = models.IntegerField()
     balance = models.IntegerField()
     deposit_products = models.ManyToManyField(to=Deposit, blank=True)
