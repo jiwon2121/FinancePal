@@ -8,7 +8,7 @@
 __pycache__/
 local_settings.py
 # 데이터 같이 보낼거면 주석처리
-db.sqlite3
+# db.sqlite3
 db.sqlite3-journal
 media
 
