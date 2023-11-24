@@ -389,8 +389,7 @@ const signUp = function () {
     data
   })
     .then(res => {
-      window.alert('가입을 환영합니다.')
-      // router.push({name: 'welcome'})
+      router.push({name: 'welcome'})
     })
     .catch(err => {
     })
