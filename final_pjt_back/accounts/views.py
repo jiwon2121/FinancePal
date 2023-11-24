@@ -17,7 +17,7 @@ import datetime
 @api_view(['GET'])
 def profile(request, username):
     if request.method == 'GET':
-        user_model = get_user_model
+        user_model = get_user_model()
         user = user_model.objects.get(username=username)
         user_serializer = ProfileSerializer(user)
         return Response(user_serializer.data)
@@ -27,7 +27,7 @@ def profile(request, username):
 def permission(request, username):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            user_model = get_user_model
+            user_model = get_user_model()
             user = user_model.objects.get(username=username)
             res = {
                 'is_super': user.is_superuser,
@@ -42,7 +42,7 @@ def permission(request, username):
 
 @api_view(['GET'])
 def dummy_user_deposit_saving(request):
-    user_model = get_user_model
+    user_model = get_user_model()
     users = user_model.objects.all()
     deposit_products = list(Deposit.objects.all())
     saving_products = list(Saving.objects.all())
@@ -65,7 +65,7 @@ def recommend_by_profile(request, username):
             age = today.year-birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
             return age
         
-        user_model = get_user_model
+        user_model = get_user_model()
         user = user_model.objects.get(username=username)
         con = sqlite3.connect("db.sqlite3")
         query = 'SELECT * FROM accounts_user_deposit_products'

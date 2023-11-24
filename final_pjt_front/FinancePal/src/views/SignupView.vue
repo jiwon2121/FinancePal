@@ -11,7 +11,7 @@
           <span class="input-group-text">아이디</span>
           <input class="form-control" type="text" id="username" v-model="username" placeholder="*필수 값입니다*">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" @click="usernameVal">확인</button>
+            <button class="btn btn-primary" type="button" @click="usernameVal">중복 확인</button>
           </div>
         </div>
         <p class="text-danger" v-if="usernameWarning">* 아이디 중복 확인을 해주세요.</p>
@@ -44,7 +44,7 @@
           <span class="input-group-text">닉네임</span>
           <input class="form-control" type="text" id="nickname" v-model="nickname" placeholder="*필수 값입니다*">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" @click="nicknameVal">확인</button>
+            <button class="btn btn-primary" type="button" @click="nicknameVal">중복 확인</button>
           </div>
         </div>
         <p class="text-danger" v-if="nicknameWarning">* 닉네임을 확인해주세요.</p>
